@@ -5,9 +5,12 @@ class ApplicationController < ActionController::API
 
     private 
 
+    def current_user 
+        @current_user ||= User.find_by(id: session[:user_id])
+    end
+
     def authorize
-        @user = User.find_by(id: session[:user_id])
-        return render json: { errors: ["Not authorize customer"] }, status: :unauthorized unless @user
+        return render json: { errors: ["Not authorize customer"] }, status: :unauthorized unless current_user
     end
 
     def render_unprocessable_entity(invalid)

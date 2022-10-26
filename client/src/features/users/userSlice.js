@@ -17,9 +17,20 @@ export const addUser = createAsyncThunk("users/fetchUsers", (action) => {
     .then((resp) => resp.json())
     .then((user) => user);
 });
+export const logInUser = createAsyncThunk("users/logInUser", (action) => {
+  return fetch("/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(action)
+  })
+  .then(resp => resp.json())
+  .then(user => user)
+})
 
 export const deleteUser = createAsyncThunk("users/deleteUser", () => {
-  fetch("/logout", { method: "DELETE" }).then((resp) => resp.json());
+  fetch("/logout", { method: "DELETE" }).then((resp) => resp.json()).then(user => user);
 });
 
 const initialState = {
@@ -64,6 +75,17 @@ const userSlice = createSlice({
         state.status = "idle";
     },
     [fetchUser.rejected](state) {
+      state.status = "idle";
+    },
+    [logInUser.pending](state) {
+      state.status = "loading";
+    },
+    [logInUser.fulfilled](state, action) {
+        state.users = []
+        state.users = action.payload;
+        state.status = "idle";
+    },
+    [logInUser.rejected](state) {
       state.status = "idle";
     },
     [deleteUser.pending](state) {
