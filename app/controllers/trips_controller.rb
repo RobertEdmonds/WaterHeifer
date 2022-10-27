@@ -1,9 +1,10 @@
 class TripsController < ApplicationController
+    skip_before_action :authorize
     before_action :set_trip, only: [:show, :update, :destroy]
     before_action :authorize_user, only: [:create, :update, :destroy]
 
     def index 
-        render json: Trips.all
+        render json: Trip.all, status: :ok 
     end
 
     def show 
@@ -32,7 +33,7 @@ class TripsController < ApplicationController
     end
 
     def set_trip
-        @trip = Trips.find(params[:id])
+        @trip = Trip.find(params[:id])
     end
 
     def authorize_user 

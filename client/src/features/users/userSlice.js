@@ -30,16 +30,16 @@ export const logInUser = createAsyncThunk("users/logInUser", (action) => {
 })
 
 export const deleteUser = createAsyncThunk("users/deleteUser", () => {
-  fetch("/logout", { method: "DELETE" }).then((resp) => resp.json()).then(user => user);
+  fetch("/logout", { method: "DELETE" });
 });
 
 const initialState = {
-  users: [],
+  user: [],
   status: "idle",
 };
 
 const userSlice = createSlice({
-  name: "users",
+  name: "user",
   initialState,
   reducers: {
     userAdded(state, action) {
@@ -58,8 +58,8 @@ const userSlice = createSlice({
       state.status = "loading";
     },
     [addUser.fulfilled](state, action) {
-      state.users = [];
-      state.users = action.payload;
+      state.user = [];
+      state.user = action.payload;
       state.status = "idle";
     },
     [addUser.rejected](state, action) {
@@ -70,8 +70,8 @@ const userSlice = createSlice({
       state.status = "loading";
     },
     [fetchUser.fulfilled](state, action) {
-        state.users = []
-        state.users = action.payload;
+        state.user = []
+        state.user = action.payload;
         state.status = "idle";
     },
     [fetchUser.rejected](state) {
@@ -81,8 +81,8 @@ const userSlice = createSlice({
       state.status = "loading";
     },
     [logInUser.fulfilled](state, action) {
-        state.users = []
-        state.users = action.payload;
+        state.user = []
+        state.user = action.payload;
         state.status = "idle";
     },
     [logInUser.rejected](state) {
@@ -92,7 +92,7 @@ const userSlice = createSlice({
       state.status = "loading";
     },
     [deleteUser.fulfilled](state) {
-      state.users = [];
+      state.user = [];
       state.status = "idle";
     },
   },

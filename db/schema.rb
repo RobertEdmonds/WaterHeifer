@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_26_205048) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_27_153006) do
   create_table "blogs", force: :cascade do |t|
     t.string "title"
     t.text "post"
@@ -68,6 +68,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_26_205048) do
     t.integer "trip_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "amount"
+    t.integer "spaces"
     t.index ["trip_id"], name: "index_user_trips_on_trip_id"
     t.index ["user_id"], name: "index_user_trips_on_user_id"
   end

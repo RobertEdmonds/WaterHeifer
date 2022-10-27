@@ -1,6 +1,11 @@
 class UsersController < ApplicationController
-    skip_before_action :authorize, only: :create
+    skip_before_action :authorize, only: [:create, :index]
+    # before_action :authorize_user, only: [:index] 
     rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity 
+
+    def index 
+        render json: User.all, status: :ok 
+    end
 
     def create
         user = User.create!(user_params)
@@ -14,15 +19,20 @@ class UsersController < ApplicationController
     end
 
     def update
-        customer = Customer.find(session[:customer_id])
-        customer.update(customer_params)
-        render json: customer, status: :created 
+        user = Customer.find(session[:user_id])
+        user.update(user_params)
+        render json: user, status: :created 
     end
 
     private 
 
     def user_params 
         params.permit(:email, :password, :password_confirmation, :name, :phone_number)
+    end
+
+    def authorize_user
+        user_can_see = current_user.employee?
+        render json: { error: "Ah ah ah, you didn't say the magic word" }, status: :forbidden unless user_can_see
     end
 
     def render_unprocessable_entity(invalid)

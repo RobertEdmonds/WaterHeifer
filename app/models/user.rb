@@ -7,7 +7,8 @@ class User < ApplicationRecord
     validates :password_confirmation, presence: true
 
     has_many :trips
-    has_many :user_trips
+    has_many :created_trips, class_name: "Trip"
+    has_many :user_trips, dependent: :destroy
     has_many :blogs
     has_many :response_blogs 
 end

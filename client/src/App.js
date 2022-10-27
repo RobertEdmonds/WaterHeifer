@@ -5,10 +5,9 @@ import { fetchUser, addUser, deleteUser, logInUser} from './features/users/userS
 function App() {
   const user = useSelector(store => store.users)
   const dispatch = useDispatch()
-  console.log(!!user.users.errors)
-  console.log(user.users)
+  // console.log(!!user.user.errors)
+  console.log(user)
   useEffect(() => {
-    console.log("hello")
     dispatch(fetchUser())
   },[dispatch])
   const handleDispatch = () => {
@@ -33,12 +32,40 @@ function App() {
   const handleDeleteDispatch = () =>{
     dispatch(deleteUser())
   }
+
+  const makeTrip = () => {
+    const form = {
+      title: "fishing",
+      description: "Poles and things",
+      start_time: "2003-09-23 12:42:06",
+      end_time: "2003-09-23 12:48:06",
+      location: "Denver",
+      spots: 5,
+      cost_per_person: 35
+    }
+    fetch("/trips", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(form)
+    })
+    .then(r => r.json())
+    .then(trip => console.log(trip))
+  }
+  const displayTrips = () => {
+    fetch("/trips")
+    .then(r => r.json())
+    .then(trip => console.log(trip))
+  }
   return (
     <div >
-      {user.users.length > 0 && user.users.map(u => <p key={u.name}>{u.name}</p>)}
+      {/* {user.length > 0 && user.map(u => <p key={u.name}>{u.name}</p>)} */}
       <button onClick={handleDispatch}>hello</button>
       <button onClick={handleLogin}>Log In</button>
       <button onClick={handleDeleteDispatch}>bye</button>
+      <button onClick={makeTrip}>Add Trip</button>
+      <button onClick={displayTrips}>trips</button>
     </div>
   );
 }

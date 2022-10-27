@@ -1,5 +1,5 @@
 class Trip < ApplicationRecord
-  belongs_to :employee, class_name: "User"
+  belongs_to :user
   has_many :user_trips, dependent: :destroy
-  has_many :attendees, through: :user_trips, source: :user
+  has_many :attendees, class_name: "User"
 end
