@@ -4,7 +4,7 @@ class TripsController < ApplicationController
     before_action :authorize_user, only: [:create, :update, :destroy]
 
     def index 
-        render json: Trip.all, status: :ok 
+        render json: Trip.all, include: ["user_trips", "user_trips.trip", "user_trips.user", "users"], status: :ok 
     end
 
     def show 

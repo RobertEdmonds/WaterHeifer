@@ -12,18 +12,18 @@ function App() {
   },[dispatch])
   const handleDispatch = () => {
     const form = {
-      name: "Bob",
-      email: "bobby@gmail.com",
+      name: "Tim",
+      email: "tim@gmail.com",
       password: "Hello",
       password_confirmation: "Hello",
-      phone_number: parseInt("1234567890"),
+      phone_number: parseInt("1234567891"),
     }
     dispatch(addUser(form))
   }
 
   const handleLogin = () => {
     const form = {
-      email: "bobby@gmail.com",
+      email: "tim@gmail.com",
       password: "Hello"
     }
     dispatch(logInUser(form))
@@ -58,6 +58,24 @@ function App() {
     .then(r => r.json())
     .then(trip => console.log(trip))
   }
+
+  const addTrip = () => {
+    const form = {
+      trip_id: 1,
+      amount: 70,
+      spaces: 2,
+      // attendees: 
+    }
+    fetch("/user_trips", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(form)
+    })
+    .then(r => r.json())
+    .then(trip => console.log(trip))
+  }
   return (
     <div >
       {/* {user.length > 0 && user.map(u => <p key={u.name}>{u.name}</p>)} */}
@@ -66,6 +84,7 @@ function App() {
       <button onClick={handleDeleteDispatch}>bye</button>
       <button onClick={makeTrip}>Add Trip</button>
       <button onClick={displayTrips}>trips</button>
+      <button onClick={addTrip}>sign up for trip</button>
     </div>
   );
 }
