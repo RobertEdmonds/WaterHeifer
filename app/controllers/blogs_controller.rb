@@ -1,29 +1,28 @@
 class BlogsController < ApplicationController
     skip_before_action :authorize, only: :index 
-    before_action :user_permitted, only: [:create, :update, :destroy]
+    before_action :set_blog, only: [:show, :update, :destroy]
+    before_action :user_permitted, only: [:update, :destroy]
     
     def index 
         render json: Blog.all, status: :ok 
     end
 
     def show 
-        blog = Blog.find(params[:id])
-        render json: blog, status: :ok 
+        render json: @blog, status: :ok 
     end
 
     def create 
-        blog = current_user.blogs.create!(blog_params)
-        render json: blog, status: :created 
+        new_blog = current_user.blogs.create!(blog_params)
+        render json: new_blog, status: :created 
     end
     
     def update 
-        blog = Blog.find(params[:id])
-        blog.update(blog_params)
-        render json: blog, status: :created 
+        @blog.update(blog_params)
+        render json: @blog, status: :created 
     end
 
     def destroy 
-        Blog.find(params[:id]).destroy 
+        @blog.destroy 
         head :no_content
     end
 
@@ -33,8 +32,11 @@ class BlogsController < ApplicationController
         params.permit(:id, :title, :post)
     end
 
+    def set_blog 
+        @blog = Blog.find(params[:id])
+
     def user_permitted 
-        user_can_modify = current_user.admin? || current_user == @user_trip.user 
+        user_can_modify = current_user.employee? || current_user.id == @blog.user_id 
         render json: { error: "You don't have permission to perform this action" }, status: :forbidden unless user_can_modify
     end
 end

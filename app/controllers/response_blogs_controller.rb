@@ -2,9 +2,9 @@ class ResponseBlogsController < ApplicationController
     before_action :set_response, only: [:update, :destroy]
     before_action :authorize_user, only: [ :update, :destroy ]
 
-    def index 
-        render json: ResponseBlog.all, status: :ok 
-    end
+    # def index 
+    #     render json: ResponseBlog.all, status: :ok 
+    # end
 
     def create 
         new_response = current_user.response_blogs.create!(response_params)
@@ -32,7 +32,7 @@ class ResponseBlogsController < ApplicationController
     end
 
     def authorize_user 
-        user_can_modify = current_user.employee? || current_user == @response.user 
+        user_can_modify = current_user.employee? || current_user.id == @response.user_id 
         render json: { error: "No Touchy" }, status: :forbidden unless user_can_modify
     end
 end

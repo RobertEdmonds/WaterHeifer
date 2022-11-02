@@ -1,5 +1,6 @@
 class CompaniesController < ApplicationController
     skip_before_action :authorize, only: [:index]
+    before_action :set_company, only: [:show, :update, :destroy]
     before_action :authorize_user, only: [:create, :update, :destroy]
 
     def index
@@ -12,19 +13,16 @@ class CompaniesController < ApplicationController
     end
 
     def show 
-        company = Company.find(params[:id])
-        render json: company, status: :ok 
+        render json: @company, status: :ok 
     end
 
     def update 
-        company = Company.find(params[:id])
-        company.update!(company_params)
+        @company.update!(company_params)
         render json: company, status: :created 
     end
 
     def destroy 
-        company = Company.find(params[:id])
-        company.destroy 
+        @company.destroy 
         head :no_content
     end
 
@@ -32,6 +30,10 @@ class CompaniesController < ApplicationController
 
     def company_params
         params.permit(:name, :tax_number, :description)
+    end
+
+    def set_company
+        @company = Company.find(params[:id])
     end
 
     def authorize_user

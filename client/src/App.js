@@ -23,7 +23,7 @@ function App() {
 
   const handleLogin = () => {
     const form = {
-      email: "Jeff@gmail.com",
+      email: "tim@gmail.com",
       password: "Hello"
     }
     dispatch(logInUser(form))
@@ -76,6 +76,13 @@ function App() {
     .then(r => r.json())
     .then(trip => console.log(trip))
   }
+
+  const deleteTrip = () => {
+    fetch("/user_trips/7", {
+      method: "DELETE"
+    })
+  } 
+  
   return (
     <div >
       {/* {user.length > 0 && user.map(u => <p key={u.name}>{u.name}</p>)} */}
@@ -85,6 +92,7 @@ function App() {
       <button onClick={makeTrip}>Add Trip</button>
       <button onClick={displayTrips}>trips</button>
       <button onClick={addTrip}>sign up for trip</button>
+      <button onClick={deleteTrip}>Delete Trip</button>
     </div>
   );
 }
