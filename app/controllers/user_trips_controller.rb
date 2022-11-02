@@ -10,7 +10,10 @@ class UserTripsController < ApplicationController
     
     def update 
       user_trip = UserTrip.find(params[:id])
+      trip_update = Trip.find(params[:trip_id])
+      trip_update.update(spots: (trip_update.spots + user_trip.spaces))
       user_trip.update!(update_user_trip_params)
+      trip_update.update(spots: (trip_update.spots - user_trip.spaces))
       render json: user_trip, status: :created 
     end
     
@@ -27,6 +30,10 @@ class UserTripsController < ApplicationController
     
     def update_user_trip_params
       params.permit(:amount, :spaces)
+    end
+
+    def set_user_trip
+      @user_trip = UserTrip.find(params[:id])
     end
 
     def authorize_user

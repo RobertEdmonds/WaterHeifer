@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
     skip_before_action :authorize, only: [:create, :index]
-    # before_action :authorize_user, only: [:index] 
+    before_action :authorize_user, only: [:update_employee] 
     rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity 
 
     def index 
@@ -19,8 +19,14 @@ class UsersController < ApplicationController
     end
 
     def update
-        user = Customer.find(session[:user_id])
+        user = User.find(session[:user_id])
         user.update(user_params)
+        render json: user, status: :created 
+    end
+
+    def update_employee
+        user = User.find(params[:id])
+        user.update(update_employee_params)
         render json: user, status: :created 
     end
 
@@ -28,6 +34,10 @@ class UsersController < ApplicationController
 
     def user_params 
         params.permit(:email, :password, :password_confirmation, :name, :phone_number)
+    end
+
+    def update_employee_params 
+        params.permit(:employee)
     end
 
     def authorize_user

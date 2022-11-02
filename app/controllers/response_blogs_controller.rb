@@ -6,10 +6,25 @@ class ResponseBlogsController < ApplicationController
         render json: ResponseBlog.all, status: :ok 
     end
 
+    def create 
+        new_response = current_user.response_blogs.create!(response_params)
+        render json: new_response, status: :created
+    end
+
+    def update 
+        @response.update(response_params)
+        render json: @response, status: :created 
+    end
+
+    def destroy 
+        @response.destroy
+        head :no_content
+    end
+
     private 
 
     def response_params
-        params.permit(:post, :blog_id, :user_id)
+        params.permit(:post, :blog_id)
     end
 
     def set_response

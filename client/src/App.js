@@ -12,18 +12,18 @@ function App() {
   },[dispatch])
   const handleDispatch = () => {
     const form = {
-      name: "Tim",
-      email: "tim@gmail.com",
+      name: "Jeff",
+      email: "Jeff@gmail.com",
       password: "Hello",
       password_confirmation: "Hello",
-      phone_number: parseInt("1234567891"),
+      phone_number: parseInt("1234567892"),
     }
     dispatch(addUser(form))
   }
 
   const handleLogin = () => {
     const form = {
-      email: "tim@gmail.com",
+      email: "Jeff@gmail.com",
       password: "Hello"
     }
     dispatch(logInUser(form))

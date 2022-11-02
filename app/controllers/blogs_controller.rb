@@ -6,6 +6,11 @@ class BlogsController < ApplicationController
         render json: Blog.all, status: :ok 
     end
 
+    def show 
+        blog = Blog.find(params[:id])
+        render json: blog, status: :ok 
+    end
+
     def create 
         blog = current_user.blogs.create!(blog_params)
         render json: blog, status: :created 

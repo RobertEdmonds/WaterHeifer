@@ -1,10 +1,10 @@
 class TripsController < ApplicationController
-    skip_before_action :authorize
+    skip_before_action :authorize, only: [:index]
     before_action :set_trip, only: [:show, :update, :destroy]
     before_action :authorize_user, only: [:create, :update, :destroy]
 
     def index 
-        render json: Trip.all, include: ["user_trips", "user_trips.trip", "user_trips.user", "users"], status: :ok 
+        render json: Trip.all, status: :ok 
     end
 
     def show 

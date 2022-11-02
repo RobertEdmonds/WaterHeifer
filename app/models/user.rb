@@ -6,8 +6,9 @@ class User < ApplicationRecord
     validates :password, confirmation: true  
     validates :password_confirmation, presence: true
 
-    has_many :created_trips, class_name: "Trip"
+    has_many :created_trips, class_name: "Trip", dependent: :destroy
     has_many :user_trips 
-    has_many :rsvp_events, through: :user_trips, source: :trip  
+    has_many :rsvp_events, through: :user_trips, source: :trip 
+    has_many :created_blog, class_name: "Blog", dependent: :destroy
 
 end
