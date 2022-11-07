@@ -1,8 +1,9 @@
-// import { useEffect } from 'react'
-import { useSelector} from "react-redux";
+import { useEffect } from 'react'
+import { useSelector, useDispatch } from "react-redux";
 import React from "react";
 import { Route } from "react-router-dom";
 // import { fetchUser, addUser, deleteUser, logInUser} from './features/users/userSlice.js'
+import { fetchUser } from '../features/users/userSlice.js'
 import Home from "./Home.js";
 import Header from "./Header.js";
 import ScheduleTrip from "./ScheduleTrip.js";
@@ -12,13 +13,12 @@ import LogIn from "../forms/LogIn.js";
 
 function App() {
   const users = useSelector((store) => store.users);
-  // console.log(users.user.length);
-  // const dispatch = useDispatch()
+  const dispatch = useDispatch()
   // // console.log(!!user.user.errors)
   // console.log(user)
-  // useEffect(() => {
-  //   dispatch(fetchUser())
-  // },[dispatch])
+  useEffect(() => {
+    dispatch(fetchUser())
+  },[dispatch])
   // const handleDispatch = () => {
   //   const form = {
   //     name: "Jeff",
@@ -102,7 +102,7 @@ function App() {
       <Route exact path="/schedule">
         <ScheduleTrip />
       </Route>
-      {users.user.length === 0 && (
+      {users.user.id === undefined && (
         <>
           <Route exact path="/signup">
             <SignUp />
@@ -111,7 +111,7 @@ function App() {
             <LogIn />
           </Route>
         </>
-      )}
+       )}
     </div>
   );
 }

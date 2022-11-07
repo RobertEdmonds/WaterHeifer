@@ -57,7 +57,7 @@ function NavBar() {
         >
           Blog
         </NavLink>
-        {users.user.length > 0 && (
+        {users.user.id > 0 && (
           <>
             <button
               aria-describedby={id}
@@ -80,7 +80,7 @@ function NavBar() {
             </Popover>
           </>
         )}
-        {users.user.length === 0 && (
+        {users.user.id === undefined && (
           <div className="navBarLogIn">
             <button className="logInButton" onClick={handleLogIn}>
               Sign In

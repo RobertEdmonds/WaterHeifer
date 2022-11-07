@@ -1,8 +1,23 @@
 .logInDiv{
-    padding-left: 30%;
+    padding-left: 35%;
 }
 
 .logInForm{
     text-align: center;
     padding-top: 10%;
+}
+
+.logInLabel{
+    color: white;
+}
+
+.signInButton{
+    margin-top: 1rem;
+    width: 5rem;
+    font-weight: bold;
+}
+
+.errorStyle{
+   text-align: center;
+   color: rgb(142, 28, 28);
 }

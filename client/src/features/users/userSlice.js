@@ -23,11 +23,11 @@ export const logInUser = createAsyncThunk("users/logInUser", (action) => {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(action)
+    body: JSON.stringify(action),
   })
-  .then(resp => resp.json())
-  .then(user => user)
-})
+    .then((resp) => resp.json())
+    .then((user) => user);
+});
 
 export const deleteUser = createAsyncThunk("users/deleteUser", () => {
   fetch("/logout", { method: "DELETE" });
@@ -35,6 +35,7 @@ export const deleteUser = createAsyncThunk("users/deleteUser", () => {
 
 const initialState = {
   user: [],
+  errors: [],
   status: "idle",
 };
 
@@ -70,9 +71,15 @@ const userSlice = createSlice({
       state.status = "loading";
     },
     [fetchUser.fulfilled](state, action) {
-        state.user = []
+      if (action.payload.errors.length > 0) {
+        state.errors = [];
+        state.user = [];
+        state.status = "idle";
+      } else {
+        state.user = [];
         state.user = action.payload;
         state.status = "idle";
+      }
     },
     [fetchUser.rejected](state) {
       state.status = "idle";
@@ -81,9 +88,15 @@ const userSlice = createSlice({
       state.status = "loading";
     },
     [logInUser.fulfilled](state, action) {
-        state.user = []
+      if (action.payload.errors.length > 0) {
+        state.errors = action.payload.errors;
+        state.status = "idle";
+      } else {
+        state.user = [];
+        state.errors = [];
         state.user = action.payload;
         state.status = "idle";
+      }
     },
     [logInUser.rejected](state) {
       state.status = "idle";
