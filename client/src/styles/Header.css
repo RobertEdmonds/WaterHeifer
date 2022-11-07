@@ -1,0 +1,10 @@
+.headerTitle{
+    float: left;
+    font-family: "CopperPlate";
+    margin-top: 1rem;
+}
+
+.headerDiv{
+    background-color: rgba(66, 118, 239, 0.628);
+    height: 4rem
+}
