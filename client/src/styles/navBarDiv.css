@@ -29,3 +29,11 @@
     background-color: blue;
     font-weight: bolder;
 }
+
+.avatarButton{
+    float:right;
+    height: 4rem;
+    border-radius: 50%;
+    border: none;
+    background-color: blue;
+}

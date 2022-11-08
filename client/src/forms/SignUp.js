@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import Box from "@mui/material/Box";
+import { addUser } from "../features/users/userSlice.js";
 import "../styles/SignUp.css";
 
 const SignUp = () => {
@@ -11,7 +13,10 @@ const SignUp = () => {
   const [confirmation, setConfirmation] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState([])
+  const users = useSelector(store => store.users)
+  const dispatch = useDispatch();
   const history = useHistory()
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -24,10 +29,27 @@ const SignUp = () => {
       password,
       password_confirmation: confirmation,
     };
+    dispatch(addUser(dataForm))
+    if (users.user.id > 0) {
+        history.push("/");
+        setLoading(false)
+      } else if (users.errors) {
+        setError(users.errors);
+        setLoading(false)
+      }
   };
-
+  console.log(users)
+//   console.log(error)
   return (
+    <>
     <div className="signUpDiv">
+    {error.map((err) => {
+        return (
+          <h4 className="errorSignUp" key={err}>
+            {err}
+          </h4>
+        );
+      })}
       <Box
         sx={{
           width: 300,
@@ -105,6 +127,7 @@ const SignUp = () => {
         </form>
       </Box>
     </div>
+      </>
   );
 };
 

@@ -2,13 +2,16 @@ import React from "react";
 import Avatar from "@mui/material/Avatar";
 import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useHistory, NavLink } from "react-router-dom";
+import { deleteUser } from '../features/users/userSlice.js'
+
 import "../styles/navBarDiv.css";
 
 function NavBar() {
   const users = useSelector((store) => store.users);
   const history = useHistory();
+  const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleAvatarClick = (event) => {
@@ -25,6 +28,10 @@ function NavBar() {
   const handleLogIn = () => {
     history.push("/login");
   };
+
+  const handleLogOut = () => {
+    dispatch(deleteUser())
+  }
   return (
     <>
       <div className="navBarDiv">
@@ -60,6 +67,7 @@ function NavBar() {
         {users.user.id > 0 && (
           <>
             <button
+            className="avatarButton"
               aria-describedby={id}
               variant="contained"
               onClick={handleAvatarClick}
@@ -75,8 +83,13 @@ function NavBar() {
                 vertical: "bottom",
                 horizontal: "left",
               }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'center',
+              }}
             >
-              <Typography sx={{ p: 2 }}>The content of the Popover.</Typography>
+              <Typography sx={{ p: 1 }}>{users.user.name}</Typography>
+              <button onClick={handleLogOut}>Log Out</button>
             </Popover>
           </>
         )}

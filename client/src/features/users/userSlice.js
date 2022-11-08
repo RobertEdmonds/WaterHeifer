@@ -6,8 +6,8 @@ export const fetchUser = createAsyncThunk("users/fetchUsers", () => {
     .then((user) => user);
 });
 
-export const addUser = createAsyncThunk("users/fetchUsers", (action) => {
-  return fetch("/signup", {
+export const addUser = createAsyncThunk("users/addUsers", async (action) => {
+  const signUp = await fetch("/signup", {
     method: "POST",
     headers: {
       "Content-type": "application/json",
@@ -16,6 +16,7 @@ export const addUser = createAsyncThunk("users/fetchUsers", (action) => {
   })
     .then((resp) => resp.json())
     .then((user) => user);
+    return signUp
 });
 export const logInUser = createAsyncThunk("users/logInUser", async (action) => {
   const loginFetch = await fetch("/login", {
@@ -27,7 +28,6 @@ export const logInUser = createAsyncThunk("users/logInUser", async (action) => {
   })
     .then((resp) => resp.json())
     .then((user) => user);
-    console.log(loginFetch)
     return loginFetch
 });
 
@@ -61,7 +61,7 @@ const userSlice = createSlice({
       state.status = "loading";
     },
     [addUser.fulfilled](state, action) {
-      if (action.payload.errors.length > 0) {
+      if (!!action.payload.errors === true) {
         state.errors = action.payload.errors;
         state.status = "idle";
       } else {
@@ -79,11 +79,12 @@ const userSlice = createSlice({
       state.status = "loading";
     },
     [fetchUser.fulfilled](state, action) {
-      if (action.payload.errors.length > 0) {
+      if (!!action.payload.errors === true || !!action.payload.error === true) {
         state.errors = [];
         state.user = [];
         state.status = "idle";
       } else {
+        state.errors = [];
         state.user = [];
         state.user = action.payload;
         state.status = "idle";
@@ -96,7 +97,7 @@ const userSlice = createSlice({
       state.status = "loading";
     },
     [logInUser.fulfilled](state, action) {
-      if (action.payload.errors.length > 0) {
+      if (!!action.payload.errors === true || !!action.payload.error === true) {
         state.errors = action.payload.errors;
         state.status = "idle";
       } else {

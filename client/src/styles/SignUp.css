@@ -1,5 +1,7 @@
 .signUpDiv{
-    padding-left: 35%;
+    padding-left: 32%;
+    margin: 1px;
+    /* width: 100%; */
 }
 
 .signUpStyle{
@@ -13,8 +15,18 @@
     font-weight: bold;
 }
 
+.inputStyle{
+    width: 15rem;
+}
+
 .signUpButton{
     margin-top: 1rem;
     width: 5rem;
     font-weight: bold;
+}
+
+.errorSignUp{
+    color: rgb(68, 35, 35);
+    margin: 1px;
+    /* float: right; */
 }
