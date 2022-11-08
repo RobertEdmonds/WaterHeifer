@@ -1,0 +1,20 @@
+.signUpDiv{
+    padding-left: 35%;
+}
+
+.signUpStyle{
+    text-align: center;
+    padding-top: 1rem;
+}
+
+.labelStyle{
+    margin-top: 1rem;
+    color: white;
+    font-weight: bold;
+}
+
+.signUpButton{
+    margin-top: 1rem;
+    width: 5rem;
+    font-weight: bold;
+}

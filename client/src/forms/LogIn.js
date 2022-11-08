@@ -25,11 +25,11 @@ const LogIn = () => {
     setLoading(false);
     if (users.user.id > 0) {
       history.push("/");
-    } else if (users.errors.length > 0) {
+    } else if (users.errors) {
       setError(users.errors);
     }
   };
-  console.log(users.errors);
+
   return (
     <>
       <div className="logInDiv">
@@ -69,13 +69,19 @@ const LogIn = () => {
               {loading ? "Loading..." : "Sign In"}
             </button>
             <h5 style={{ margin: "1px", color: "white" }}>or</h5>
-            <Link to="/signup" style={{ color: "white" }}>
+            <Link to="/signup" style={{ color: "white", fontWeight: "bold" }}>
               Sign Up
             </Link>
           </form>
         </Box>
       </div>
-      <h3 className="errorStyle">{error}</h3>
+      {error.map((err) => {
+        return (
+          <h3 className="errorStyle" key={err}>
+            {err}
+          </h3>
+        );
+      })}
     </>
   );
 };

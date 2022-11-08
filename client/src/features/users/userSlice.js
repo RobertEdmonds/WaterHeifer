@@ -17,8 +17,8 @@ export const addUser = createAsyncThunk("users/fetchUsers", (action) => {
     .then((resp) => resp.json())
     .then((user) => user);
 });
-export const logInUser = createAsyncThunk("users/logInUser", (action) => {
-  return fetch("/login", {
+export const logInUser = createAsyncThunk("users/logInUser", async (action) => {
+  const loginFetch = await fetch("/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -27,6 +27,8 @@ export const logInUser = createAsyncThunk("users/logInUser", (action) => {
   })
     .then((resp) => resp.json())
     .then((user) => user);
+    console.log(loginFetch)
+    return loginFetch
 });
 
 export const deleteUser = createAsyncThunk("users/deleteUser", () => {
@@ -59,9 +61,15 @@ const userSlice = createSlice({
       state.status = "loading";
     },
     [addUser.fulfilled](state, action) {
-      state.user = [];
-      state.user = action.payload;
-      state.status = "idle";
+      if (action.payload.errors.length > 0) {
+        state.errors = action.payload.errors;
+        state.status = "idle";
+      } else {
+        state.user = [];
+        state.errors = [];
+        state.user = action.payload;
+        state.status = "idle";
+      }
     },
     [addUser.rejected](state, action) {
       state.errors = action.payload;
