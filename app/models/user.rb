@@ -4,7 +4,7 @@ class User < ApplicationRecord
     validates :name, presence: true
     validates :phone_number, presence: true, uniqueness: true, numericality: { only_integer: true }, length: { minimum: 10, maximum: 12 }
     validates :password, confirmation: true  
-    validates :password_confirmation, presence: true
+    # validates :password_confirmation, presence: true
 
     has_many :created_trips, class_name: "Trip", dependent: :destroy
     has_many :user_trips 

@@ -9,6 +9,7 @@ import Header from "./Header.js";
 import ScheduleTrip from "./ScheduleTrip.js";
 import SignUp from "../forms/SignUp.js";
 import LogIn from "../forms/LogIn.js";
+import CreateTrip from '../forms/CreateTrip.js';
 // import NavBar from './components/NavBar.js';
 
 function App() {
@@ -101,6 +102,9 @@ function App() {
       </Route>
       <Route exact path="/schedule">
         <ScheduleTrip />
+      </Route>
+      <Route exact path="/create_trip">
+        <CreateTrip />
       </Route>
       {users.user.id === undefined && (
         <>

@@ -4,7 +4,7 @@ import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory, NavLink } from "react-router-dom";
-import { deleteUser } from '../features/users/userSlice.js'
+import { deleteUser } from "../features/users/userSlice.js";
 
 import "../styles/navBarDiv.css";
 
@@ -30,8 +30,8 @@ function NavBar() {
   };
 
   const handleLogOut = () => {
-    dispatch(deleteUser())
-  }
+    dispatch(deleteUser());
+  };
   return (
     <>
       <div className="navBarDiv">
@@ -51,6 +51,13 @@ function NavBar() {
           Schedule Trip
         </NavLink>
         <NavLink
+          to="/create_trip"
+          className="navBarLinks"
+          activeStyle={{ color: "black" }}
+        >
+          Create Trip
+        </NavLink>
+        <NavLink
           to="/donate"
           className="navBarLinks"
           activeStyle={{ color: "black" }}
@@ -67,7 +74,7 @@ function NavBar() {
         {users.user.id > 0 && (
           <>
             <button
-            className="avatarButton"
+              className="avatarButton"
               aria-describedby={id}
               variant="contained"
               onClick={handleAvatarClick}
@@ -84,8 +91,8 @@ function NavBar() {
                 horizontal: "left",
               }}
               transformOrigin={{
-                vertical: 'top',
-                horizontal: 'center',
+                vertical: "top",
+                horizontal: "center",
               }}
             >
               <Typography sx={{ p: 1 }}>{users.user.name}</Typography>
