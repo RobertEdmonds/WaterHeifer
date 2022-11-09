@@ -12,7 +12,7 @@ class TripsController < ApplicationController
     end
 
     def create 
-        new_trip = current_user.trips.create!(trip_params)
+        new_trip = current_user.created_trips.create!(trip_params)
         render json: new_trip, status: :created 
     end
 
@@ -38,6 +38,6 @@ class TripsController < ApplicationController
 
     def authorize_user 
         user_can_modify = current_user.employee?
-        render json: { error: "No touchy!" }, status: :forbidden unless user_can_modify
+        render json: { errors: "No touchy!" }, status: :forbidden unless user_can_modify
     end
 end

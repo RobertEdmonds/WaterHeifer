@@ -3,114 +3,170 @@ import Box from "@mui/material/Box";
 import dayjs from "dayjs";
 import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
+import Button from "@mui/material/Button";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
-import "../styles/CreateTrip.css"
+import "../styles/CreateTrip.css";
 
-export default function CreateTrip() {
+export default function CreateTrip({ handleAddTrip }) {
   const [location, setLocation] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [start, setStart] = useState(dayjs("Tue Nov 08 2022 00:00:00 GMT-0500 (Eastern Standard Time)"));
-  const [end, setEnd] = useState(dayjs("Tue Nov 08 2022 00:00:00 GMT-0500 (Eastern Standard Time)"));
+  const [start, setStart] = useState(
+    dayjs("Tue Nov 08 2022 00:00:00 GMT-0500 (Eastern Standard Time)")
+  );
+  const [end, setEnd] = useState(
+    dayjs("Tue Nov 08 2022 00:00:00 GMT-0500 (Eastern Standard Time)")
+  );
   const [spots, setSpots] = useState("");
   const [cost, setCost] = useState("");
+  const [error, setError] = useState([]);
 
   const handleCreateTrip = (e) => {
     e.preventDefault();
+    setError([])
+    const form = {
+      location,
+      title,
+      description,
+      start_time: start.$d,
+      end_time: end.$d,
+      spots: parseInt(spots),
+      cost_per_person: cost,
+    };
+    fetch("/trips", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(form),
+    }).then((resp) => {
+      if (resp.ok) {
+        resp.json().then((trip) => handleAddTrip(trip));
+        setLocation("");
+        setTitle("");
+        setDescription("");
+        setSpots("");
+        setCost("");
+        setStart(
+          dayjs("Tue Nov 08 2022 00:00:00 GMT-0500 (Eastern Standard Time)")
+        );
+        setEnd(
+          dayjs("Tue Nov 08 2022 00:00:00 GMT-0500 (Eastern Standard Time)")
+        );
+      } else {
+        resp.json().then((err) => setError(err.errors));
+      }
+    });
   };
-  console.log(start.$d)
+
   return (
-    <div>
-      <Box
-        sx={{
-          width: 300,
-          height: 320,
-          backgroundColor: "primary.dark",
-          //   "&:hover": {
-          //     backgroundColor: "primary.main",
-          //     opacity: [0.9, 0.8, 0.7],
-          //   },
-        }}
-      >
-        <form onSubmit={handleCreateTrip}>
-          <label className="">
-            Title <br/>
-            <input
-              className=""
-              style={{ width: "25rem" }}
-              type="text"
-              name="Title"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-            />
-          </label>
-          <br />
-          <label className="">
-            Location <br/>
-            <input
-              className=""
-              style={{ width: "7rem" }}
-              type="text"
-              name="location"
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
-            />
-          </label>
-          <br/>
-          <label className="">
-            Available Spots<br/>
-            <input
-              className=""
-              style={{ width: "5rem" }}
-              type="text"
-              name=""
-              value={spots}
-              onChange={(e) => setSpots(e.target.value)}
-            />
-          </label>
-          <label className="">
-            Cost Per Person:
-            <input
-              className=""
-              style={{ width: "5rem" }}
-              type="text"
-              name="cost"
-              value={cost}
-              onChange={(e) => setCost(e.target.value)}
-            />
-          </label>
-          <br />
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <Stack spacing={3}>
-              <DateTimePicker
-                label="Start Time"
-                value={start}
-                onChange={(e) => setStart(e)}
-                renderInput={(params) => <TextField {...params} />}
+    <>
+      <ul className="errorStyle">
+        {error.map((err) => {
+          return <li key={err}>{err}</li>;
+        })}
+      </ul>
+      <div className="createStyle">
+        <Box
+          sx={{
+            width: 320,
+            height: 450,
+            backgroundColor: "primary.dark",
+            //   "&:hover": {
+            //     backgroundColor: "primary.main",
+            //     opacity: [0.9, 0.8, 0.7],
+            //   },
+          }}
+        >
+          <form onSubmit={handleCreateTrip} style={{ paddingTop: "1rem" }}>
+            <label className="createLabel">
+              Title <br />
+              <input
+                className=""
+                style={{ width: "15rem" }}
+                type="text"
+                name="Title"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
               />
-              <DateTimePicker
-                label="End Time"
-                value={end}
-                onChange={(e) => setEnd(e)}
-                renderInput={(params) => <TextField {...params} />}
-              />
-            </Stack>
-          </LocalizationProvider>
-          <label className="">
-            Description:
+            </label>
             <br />
-            <textarea
-              className=""
-              type="text"
-              name="description"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-            />
-          </label>
-        </form>
-      </Box>
-    </div>
+            <label className="createLabel">
+              Location <br />
+              <input
+                className=""
+                style={{ width: "7rem" }}
+                type="text"
+                name="location"
+                value={location}
+                onChange={(e) => setLocation(e.target.value)}
+              />
+            </label>
+            <br />
+            <label className="spotStyle">
+              Available Spots
+              <br />
+              <input
+                className=""
+                style={{ width: "5rem" }}
+                type="text"
+                name=""
+                value={spots}
+                onChange={(e) => setSpots(e.target.value)}
+              />
+            </label>
+            <label className="createLabel">
+              Cost Per Person
+              <input
+                className=""
+                style={{ width: "5rem", marginBottom: "1rem" }}
+                type="text"
+                name="cost"
+                value={cost}
+                onChange={(e) => setCost(e.target.value)}
+              />
+            </label>
+            <br />
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <Stack spacing={3}>
+                <DateTimePicker
+                  sx={{ color: "success.main" }}
+                  label="Start Time"
+                  value={start}
+                  onChange={(e) => setStart(e)}
+                  renderInput={(params) => <TextField {...params} />}
+                />
+                <DateTimePicker
+                  label="End Time"
+                  value={end}
+                  onChange={(e) => setEnd(e)}
+                  renderInput={(params) => <TextField {...params} />}
+                />
+              </Stack>
+            </LocalizationProvider>
+            <label className="createLabel">
+              Description
+              <br />
+              <textarea
+                className="descriptionStyle"
+                type="text"
+                name="description"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+              />
+            </label>
+            <Button
+              variant="text"
+              type="submit"
+              style={{ color: "white", fontWeight: "bold" }}
+            >
+              Add Trip
+            </Button>
+          </form>
+        </Box>
+      </div>
+    </>
   );
 }

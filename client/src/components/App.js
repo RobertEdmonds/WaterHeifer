@@ -10,6 +10,7 @@ import ScheduleTrip from "./ScheduleTrip.js";
 import SignUp from "../forms/SignUp.js";
 import LogIn from "../forms/LogIn.js";
 import CreateTrip from '../forms/CreateTrip.js';
+import AddCompany from '../forms/AddCompany.js';
 // import NavBar from './components/NavBar.js';
 
 function App() {
@@ -93,6 +94,10 @@ function App() {
   //   })
   // }
 
+  const handleAddTrip = (newTrip) => {
+    console.log(newTrip)
+  }
+
   return (
     <div>
       <Header />
@@ -104,7 +109,10 @@ function App() {
         <ScheduleTrip />
       </Route>
       <Route exact path="/create_trip">
-        <CreateTrip />
+        <CreateTrip handleAddTrip={handleAddTrip}/>
+      </Route>
+      <Route exact path="/add_company">
+        <AddCompany />
       </Route>
       {users.user.id === undefined && (
         <>

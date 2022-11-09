@@ -1,0 +1,27 @@
+.createStyle{
+    padding-left: 35%;
+    text-align: center;
+}
+
+.createLabel{
+    font-weight: bold;
+    color: white
+}
+
+.spotStyle{
+    font-weight: bold;
+    color: white;
+    float: left;
+    padding-left: 1rem;
+}
+
+.descriptionStyle{
+    width: 17rem;
+    height: 5rem;
+}
+
+.errorStyle{
+    float: left;
+    list-style: none;
+    font-weight: bold;
+}

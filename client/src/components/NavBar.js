@@ -2,6 +2,7 @@ import React from "react";
 import Avatar from "@mui/material/Avatar";
 import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
+import Button from '@mui/material/Button';
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory, NavLink } from "react-router-dom";
 import { deleteUser } from "../features/users/userSlice.js";
@@ -65,6 +66,13 @@ function NavBar() {
           Donate
         </NavLink>
         <NavLink
+          to="/add_company"
+          className="navBarLinks"
+          activeStyle={{ color: "black" }}
+        >
+          Add Company
+        </NavLink>
+        <NavLink
           to="/blog"
           className="navBarLinks"
           activeStyle={{ color: "black" }}
@@ -96,7 +104,7 @@ function NavBar() {
               }}
             >
               <Typography sx={{ p: 1 }}>{users.user.name}</Typography>
-              <button onClick={handleLogOut}>Log Out</button>
+              <Button variant="text" onClick={handleLogOut}>Log Out</Button>
             </Popover>
           </>
         )}
