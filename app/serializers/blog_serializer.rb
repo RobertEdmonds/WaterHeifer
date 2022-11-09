@@ -1,5 +1,5 @@
 class BlogSerializer < ActiveModel::Serializer
-  attributes :id, :title
+  attributes :id, :title, :post
   has_one :user
-  has_many :posters
+  has_many :responders
 end

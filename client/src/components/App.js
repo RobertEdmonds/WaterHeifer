@@ -1,7 +1,7 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from "react-redux";
 import React from "react";
-import { Route } from "react-router-dom";
+import { useHistory, Route } from "react-router-dom";
 // import { fetchUser, addUser, deleteUser, logInUser} from './features/users/userSlice.js'
 import { fetchUser } from '../features/users/userSlice.js'
 import Home from "./Home.js";
@@ -11,59 +11,22 @@ import SignUp from "../forms/SignUp.js";
 import LogIn from "../forms/LogIn.js";
 import CreateTrip from '../forms/CreateTrip.js';
 import AddCompany from '../forms/AddCompany.js';
+import Blog from './Blog.js';
+import ShowBlog from './ShowBlog.js';
 // import NavBar from './components/NavBar.js';
 
 function App() {
   const users = useSelector((store) => store.users);
   const dispatch = useDispatch()
+  const [blogs, setBlogs] = useState([])
+  const [blogId, setBlogId] = useState(0)
+  const [blogInfo, setBlogInfo] = useState([])
+  const history = useHistory()
   // // console.log(!!user.user.errors)
-  // console.log(user)
   useEffect(() => {
     dispatch(fetchUser())
   },[dispatch])
-  // const handleDispatch = () => {
-  //   const form = {
-  //     name: "Jeff",
-  //     email: "Jeff@gmail.com",
-  //     password: "Hello",
-  //     password_confirmation: "Hello",
-  //     phone_number: parseInt("1234567892"),
-  //   }
-  //   dispatch(addUser(form))
-  // }
 
-  // const handleLogin = () => {
-  //   const form = {
-  //     email: "tim@gmail.com",
-  //     password: "Hello"
-  //   }
-  //   dispatch(logInUser(form))
-  // }
-
-  // const handleDeleteDispatch = () =>{
-  //   dispatch(deleteUser())
-  // }
-
-  // const makeTrip = () => {
-  //   const form = {
-  //     title: "fishing",
-  //     description: "Poles and things",
-  //     start_time: "2003-09-23 12:42:06",
-  //     end_time: "2003-09-23 12:48:06",
-  //     location: "Denver",
-  //     spots: 5,
-  //     cost_per_person: 35
-  //   }
-  //   fetch("/trips", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify(form)
-  //   })
-  //   .then(r => r.json())
-  //   .then(trip => console.log(trip))
-  // }
   // const displayTrips = () => {
   //   fetch("/trips")
   //   .then(r => r.json())
@@ -93,7 +56,6 @@ function App() {
   //     method: "DELETE"
   //   })
   // }
-
   const handleAddTrip = (newTrip) => {
     console.log(newTrip)
   }
@@ -101,6 +63,33 @@ function App() {
   const handleNewCompany = (newCompany) => {
     console.log(newCompany)
   }
+
+  const handleShowBlog = (showBlog) => {
+    if (users.user.id === undefined) {
+      history.push("/login");
+    } else {
+      fetch(`blogs/${showBlog.id}`).then((resp) => {
+        if (resp.ok) {
+          resp.json().then((blog) => {
+            setBlogInfo(blog);
+            setBlogId(blog.id);
+            history.push(`/blog/${blog.id}`);
+          });
+        } else {
+          resp.json().then((err) => setBlogInfo(err));
+        }
+      })}
+  }
+
+  useEffect(() => {
+    fetch("/blogs")
+      .then((resp) => resp.json())
+      .then((blogs) => setBlogs(blogs));
+  }, []);
+
+  const handleNewBlog = (showBlog) => {
+    setBlogs([...blogs, showBlog])
+  };
 
   return (
     <div>
@@ -111,6 +100,12 @@ function App() {
       </Route>
       <Route exact path="/schedule">
         <ScheduleTrip />
+      </Route>
+      <Route exact path="/blog">
+        <Blog handleShowBlog={handleShowBlog} blogs={blogs} handleNewBlog={handleNewBlog}/>
+      </Route>
+      <Route exact path={`/blog/${blogId}`}>
+        <ShowBlog blogInfo={blogInfo}/>
       </Route>
       <Route exact path="/create_trip">
         <CreateTrip handleAddTrip={handleAddTrip}/>

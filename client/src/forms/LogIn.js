@@ -22,18 +22,30 @@ const LogIn = () => {
       password,
     };
     dispatch(logInUser(form));
-  
-      setLoading(false);
-      if (users.user.id > 0) {
-        history.push("/");
-      } else if (users.errors) {
-        setError(users.errors);
-      }
+    showLogIn()
   };
 
+  const showLogIn = () => {
+      if (users.user.id > 0) {
+        history.push("/");
+        setLoading(false);
+      } else if (users.errors) {
+        setError(users.errors);
+        setLoading(false);
+      }
+  }
 
   return (
     <>
+    <ul>
+    {error.map((err) => {
+        return (
+          <li className="errorStyle" key={err}>
+            {err}
+          </li>
+        );
+      })}
+    </ul>
       <div className="logInDiv">
         <Box
           sx={{
@@ -77,13 +89,6 @@ const LogIn = () => {
           </form>
         </Box>
       </div>
-      {error.map((err) => {
-        return (
-          <h3 className="errorStyle" key={err}>
-            {err}
-          </h3>
-        );
-      })}
     </>
   );
 };

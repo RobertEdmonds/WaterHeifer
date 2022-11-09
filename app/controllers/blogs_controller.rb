@@ -1,7 +1,7 @@
 class BlogsController < ApplicationController
-    skip_before_action :authorize, only: :index 
+    skip_before_action :authorize, only: [:index] 
     before_action :set_blog, only: [:show, :update, :destroy]
-    before_action :user_permitted, only: [:update, :destroy]
+    before_action :user_permitted, only: [:create ,:update, :destroy]
     
     def index 
         render json: Blog.all, status: :ok 
@@ -12,7 +12,7 @@ class BlogsController < ApplicationController
     end
 
     def create 
-        new_blog = current_user.blogs.create!(blog_params)
+        new_blog = current_user.created_blogs.create!(blog_params)
         render json: new_blog, status: :created 
     end
     
@@ -34,6 +34,7 @@ class BlogsController < ApplicationController
 
     def set_blog 
         @blog = Blog.find(params[:id])
+    end
 
     def user_permitted 
         user_can_modify = current_user.employee? || current_user.id == @blog.user_id 
