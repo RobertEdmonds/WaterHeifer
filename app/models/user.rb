@@ -10,6 +10,8 @@ class User < ApplicationRecord
     has_many :user_trips 
     has_many :rsvp_events, through: :user_trips, source: :trip 
     has_many :created_blogs, class_name: "Blog", dependent: :destroy
+    has_many :response_blogs
+    has_many :blogs, through: :response_blogs
     has_many :donations
 
 end

@@ -3,5 +3,5 @@ class ResponseBlog < ApplicationRecord
   belongs_to :user 
 
   validates :post, presence: true 
-  validates :blog_id, presence: true, uniqueness: true 
+  validates :blog_id, presence: true 
 end

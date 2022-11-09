@@ -18,6 +18,12 @@ export default function RespBlogForm({blogId}){
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(form),
+        }).then(resp => {
+            if(resp.ok){
+                resp.json().then(blog => console.log(blog))
+            }else{
+                resp.json().then(err => setError(err.errors))
+            }
         })
     }
     return(
