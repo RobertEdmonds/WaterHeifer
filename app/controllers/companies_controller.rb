@@ -9,6 +9,7 @@ class CompaniesController < ApplicationController
 
     def create 
         company = Company.create!(company_params)
+        company.update(total_donation: 0)
         render json: company, status: :created 
     end
 

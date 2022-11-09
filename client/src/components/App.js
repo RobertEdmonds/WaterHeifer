@@ -98,6 +98,10 @@ function App() {
     console.log(newTrip)
   }
 
+  const handleNewCompany = (newCompany) => {
+    console.log(newCompany)
+  }
+
   return (
     <div>
       <Header />
@@ -112,7 +116,7 @@ function App() {
         <CreateTrip handleAddTrip={handleAddTrip}/>
       </Route>
       <Route exact path="/add_company">
-        <AddCompany />
+        <AddCompany handleNewCompany={handleNewCompany}/>
       </Route>
       {users.user.id === undefined && (
         <>
