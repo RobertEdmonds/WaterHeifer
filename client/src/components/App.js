@@ -69,7 +69,7 @@ function App() {
   }, [])
 
   const handleNewCompany = (newCompany) => {
-    console.log(newCompany)
+    setCompany([...company, newCompany])
   }
 
   const handleShowBlog = (showBlog) => {
@@ -115,15 +115,21 @@ function App() {
       <Route exact path="/blog">
         <Blog handleShowBlog={handleShowBlog} blogs={blogs} handleNewBlog={handleNewBlog}/>
       </Route>
+      {users.user.id >0 && (
       <Route exact path={`/blog/${blogId}`}>
         <ShowBlog blogInfo={blogInfo}/>
       </Route>
+      )}
+      {users.user.employee && (
+        <>
       <Route exact path="/create_trip">
         <CreateTrip handleAddTrip={handleAddTrip}/>
       </Route>
       <Route exact path="/add_company">
         <AddCompany handleNewCompany={handleNewCompany}/>
       </Route>
+      </>
+      )}
       {users.user.id === undefined && (
         <>
           <Route exact path="/signup">

@@ -38,7 +38,7 @@ class DonationsController < ApplicationController
     end
  
     def authorize_user
-        user_can_modify = current_user.admin? || current_user.id == @donation.user_id
+        user_can_modify = current_user.employee? || current_user.id == @donation.user_id
         render json: { error: "You don't have permission to perform this action" }, status: :forbidden unless user_can_modify
     end
 end

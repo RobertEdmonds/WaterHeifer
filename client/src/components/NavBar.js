@@ -51,6 +51,7 @@ function NavBar() {
         >
           Schedule Trip
         </NavLink>
+        {users.user.employee && (
         <NavLink
           to="/create_trip"
           className="navBarLinks"
@@ -58,6 +59,7 @@ function NavBar() {
         >
           Create Trip
         </NavLink>
+        )}
         <NavLink
           to="/donate"
           className="navBarLinks"
@@ -65,6 +67,7 @@ function NavBar() {
         >
           Donate
         </NavLink>
+        {users.user.employee && (
         <NavLink
           to="/add_company"
           className="navBarLinks"
@@ -72,6 +75,7 @@ function NavBar() {
         >
           Add Company
         </NavLink>
+        )}
         <NavLink
           to="/blog"
           className="navBarLinks"

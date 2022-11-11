@@ -13,5 +13,6 @@ class User < ApplicationRecord
     has_many :response_blogs
     has_many :blogs, through: :response_blogs
     has_many :donations
+    has_many :companies, through: :donations 
 
 end

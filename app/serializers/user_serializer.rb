@@ -4,5 +4,6 @@ class UserSerializer < ActiveModel::Serializer
   has_many :created_trips 
   has_many :created_blogs
   has_many :donations 
+  has_many :companies
 
 end
