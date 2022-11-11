@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Button from "@mui/material/Button";
 
-export default function RespBlogForm({blogId}){
+export default function RespBlogForm({blogId, handleAddResponse}){
     const [post, setPost] = useState("")
     const [error, setError] = useState([])
 
@@ -20,7 +20,8 @@ export default function RespBlogForm({blogId}){
             body: JSON.stringify(form),
         }).then(resp => {
             if(resp.ok){
-                resp.json().then(blog => console.log(blog))
+                resp.json().then(blog => handleAddResponse(blog))
+                setPost("")
             }else{
                 resp.json().then(err => setError(err.errors))
             }
@@ -33,12 +34,12 @@ export default function RespBlogForm({blogId}){
           return <li key={err}>{err}</li>;
         })}
       </ul>
-      <div className="responseStyle">
+      <div className="respFormStyle" style={{ backgroundColor: "black", width: "20rem", textAlign: "center"}}>
           <form onSubmit={handleResponse}>
             <label className="createLabel">
               <input
                 className=""
-                style={{ width: "15rem" }}
+                style={{ width: "10rem" }}
                 type="text"
                 name="post"
                 value={post}

@@ -1,0 +1,17 @@
+.donateColumn{
+    float: left;
+    width: 29%;
+    margin-left: 2rem;
+    margin-bottom: 1rem;
+    /* background-image: url("https://freesvg.org/img/1543178897.png"); */
+    background-image: url("https://freesvg.org/img/liftarn_Western_border.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: bottom;
+}
+
+.donateRow{
+    width: 60%;
+    padding-left: 4rem;
+    text-align: center;
+}

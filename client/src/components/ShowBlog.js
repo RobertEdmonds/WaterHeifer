@@ -4,11 +4,11 @@ export default function ShowBlog({blogInfo}){
 
     return(
         <>
-        <div>
+        <div style={{color: "white", backgroundColor: "black", marginLeft: "18rem", width: "32rem", textAlign: "center"}}>
             <h1>{blogInfo.title}</h1>
             <h3>{blogInfo.post}</h3>
         </div>
-        <ResponseBlog responder={blogInfo.responders} respPost={blogInfo.response_blogs} blogId={blogInfo.id}/>
+        <ResponseBlog respPost={blogInfo.response_blogs} responder={blogInfo.responders} blogId={blogInfo.id}/>
         </>
     )
 } 

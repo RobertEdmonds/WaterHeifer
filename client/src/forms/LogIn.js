@@ -22,18 +22,14 @@ const LogIn = () => {
       password,
     };
     dispatch(logInUser(form));
-    showLogIn()
+    if (users.user.id > 0) {
+      history.push("/");
+      setLoading(false);
+    } else if (users.errors) {
+      setError(users.errors);
+      setLoading(false);
+    }
   };
-
-  const showLogIn = () => {
-      if (users.user.id > 0) {
-        history.push("/");
-        setLoading(false);
-      } else if (users.errors) {
-        setError(users.errors);
-        setLoading(false);
-      }
-  }
 
   return (
     <>
