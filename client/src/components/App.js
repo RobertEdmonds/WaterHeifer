@@ -14,7 +14,7 @@ import AddCompany from '../forms/AddCompany.js';
 import Blog from './Blog.js';
 import ShowBlog from './ShowBlog.js';
 import Donate from './Donate.js';
-import ScheduleForm from '../forms/ScheduleForm.js';
+import ProfileForm from '../forms/ProfileForm.js';
 // import NavBar from './components/NavBar.js';
 
 function App() {
@@ -36,24 +36,6 @@ function App() {
     .then(r => r.json())
     .then(trip => setTrips(trip))
   },[])
-
-  // const addTrip = () => {
-  //   const form = {
-  //     trip_id: 1,
-  //     amount: 70,
-  //     spaces: 2,
-  //     // attendees:
-  //   }
-  //   fetch("/user_trips", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify(form)
-  //   })
-  //   .then(r => r.json())
-  //   .then(trip => console.log(trip))
-  // }
 
   // const deleteTrip = () => {
   //   fetch("/user_trips/7", {
@@ -121,6 +103,9 @@ function App() {
         <>
       <Route exact path={`/blog/${blogId}`}>
         <ShowBlog blogInfo={blogInfo}/>
+      </Route>
+      <Route exact path='/profile'>
+        <ProfileForm />
       </Route>
       </>
       )}

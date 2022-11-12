@@ -30,6 +30,10 @@ function NavBar() {
     history.push("/login");
   };
 
+  const handleProfile = () => {
+    history.push("/profile")
+  }
+
   const handleLogOut = () => {
     dispatch(deleteUser());
   };
@@ -108,6 +112,8 @@ function NavBar() {
               }}
             >
               <Typography sx={{ p: 1 }}>{users.user.name}</Typography>
+              <Button variant="text" onClick={handleProfile}>My Profile</Button>
+              <br/>
               <Button variant="text" onClick={handleLogOut}>Log Out</Button>
             </Popover>
           </>

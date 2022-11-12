@@ -8,7 +8,7 @@ export default function Donate({ companies }) {
       {companies.map((company) => {
         return (
           <div key={company.id} className="donateColumn">
-            <h3 className="donateRow" style={{ marginBottom: "1px" }}>
+            <h3 className="donateRow" style={{ marginBottom: "1px", fontFamily: "CopperPlate" }}>
               {company.name}
             </h3>
             <p
