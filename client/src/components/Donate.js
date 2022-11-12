@@ -1,14 +1,7 @@
-import { useState } from "react";
 import DonateForm from "../forms/DonateForm";
 import "../styles/Donate.css";
 
 export default function Donate({ companies }) {
-  // const [total, setTotal] = useState(0)
-
-  // const handleAddDonation = (amount) => {
-  //   setTotal(total + amount)
-  //   console.log(total)
-  // }
 
   return (
     <>

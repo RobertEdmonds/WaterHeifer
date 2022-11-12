@@ -14,6 +14,7 @@ import AddCompany from '../forms/AddCompany.js';
 import Blog from './Blog.js';
 import ShowBlog from './ShowBlog.js';
 import Donate from './Donate.js';
+import ScheduleForm from '../forms/ScheduleForm.js';
 // import NavBar from './components/NavBar.js';
 
 function App() {
@@ -23,17 +24,18 @@ function App() {
   const [blogId, setBlogId] = useState(0)
   const [blogInfo, setBlogInfo] = useState({})
   const [company, setCompany] = useState([])
+  const [trips, setTrips] = useState([])
   const history = useHistory()
-  // // console.log(!!user.user.errors)
+
   useEffect(() => {
     dispatch(fetchUser())
   },[dispatch])
 
-  // const displayTrips = () => {
-  //   fetch("/trips")
-  //   .then(r => r.json())
-  //   .then(trip => console.log(trip))
-  // }
+  useEffect(() => {
+    fetch("/trips")
+    .then(r => r.json())
+    .then(trip => setTrips(trip))
+  },[])
 
   // const addTrip = () => {
   //   const form = {
@@ -59,7 +61,7 @@ function App() {
   //   })
   // }
   const handleAddTrip = (newTrip) => {
-    console.log(newTrip)
+    setTrips([...trips, newTrip])
   }
 
   useEffect(() => {
@@ -107,7 +109,7 @@ function App() {
         <Home />
       </Route>
       <Route exact path="/schedule">
-        <ScheduleTrip />
+        <ScheduleTrip trips={trips}/>
       </Route>
       <Route exact path="/donate">
         <Donate companies={company}/>
@@ -116,9 +118,11 @@ function App() {
         <Blog handleShowBlog={handleShowBlog} blogs={blogs} handleNewBlog={handleNewBlog}/>
       </Route>
       {users.user.id >0 && (
+        <>
       <Route exact path={`/blog/${blogId}`}>
         <ShowBlog blogInfo={blogInfo}/>
       </Route>
+      </>
       )}
       {users.user.employee && (
         <>

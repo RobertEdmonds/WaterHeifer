@@ -1,12 +1,9 @@
 import { useState } from "react";
 import Button from "@mui/material/Button";
 
-export default function DonateForm({
-  compId,
-  totalD,
-}) {
+export default function DonateForm({ compId, totalD }) {
   const [amount, setAmount] = useState(0);
-  const [total, setTotal] = useState(totalD)
+  const [total, setTotal] = useState(totalD);
 
   function handleAmount(pay) {
     setAmount(pay);
@@ -26,6 +23,7 @@ export default function DonateForm({
     })
       .then((resp) => resp.json())
       .then((payment) => setTotal(total + payment.amount));
+    setAmount(0);
   };
   return (
     <>
