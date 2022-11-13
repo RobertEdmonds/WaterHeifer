@@ -7,39 +7,39 @@ import ProfileDonation from "../components/ProfileDonation";
 
 export default function ProfileForm() {
   const users = useSelector((store) => store.users);
-  const dispatch = useDispatch()
-  const [email, setEmail] = useState(users.user.email)
-  const [name, setName] = useState(users.user.name)
-  const [phone, setPhone] = useState(users.user.phone_number)
-  const [error, setError] = useState([])
-  const [showTrips, setShowTrips] = useState(false)
-  const [showDonation, setShowDonation] = useState(false)
-//   console.log(dispatch(userUpdated));
+  const dispatch = useDispatch();
+  const [email, setEmail] = useState(users.user.email);
+  const [name, setName] = useState(users.user.name);
+  const [phone, setPhone] = useState(users.user.phone_number);
+  const [error, setError] = useState([]);
+  const [showTrips, setShowTrips] = useState(false);
+  const [showDonation, setShowDonation] = useState(false);
+
   const handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     const form = {
-        name: name.toUpperCase(),
-        email: email.toUpperCase(),
-        phone_number: phone
-    }
+      name: name.toUpperCase(),
+      email: email.toUpperCase(),
+      phone_number: phone,
+    };
     fetch(`/user_update`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(form),
-      }).then((resp) => {
-        if (resp.ok) {
-          resp.json().then((user) => dispatch(userUpdated(user)));
-        } else {
-          resp.json((err) => setError(err.errors));
-        }
-      });
-  }
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(form),
+    }).then((resp) => {
+      if (resp.ok) {
+        resp.json().then((user) => dispatch(userUpdated(user)));
+      } else {
+        resp.json((err) => setError(err.errors));
+      }
+    });
+  };
 
   return (
     <>
-    <h2 style={{borderTop: "solid", borderBottom: "solid"}}>Profile</h2>
+      <h2 style={{ borderTop: "solid", borderBottom: "solid" }}>Profile</h2>
       <div className="signUpDiv">
         {error.map((err) => {
           return (
@@ -52,7 +52,7 @@ export default function ProfileForm() {
           sx={{
             width: 300,
             height: 200,
-            backgroundColor: "primary.dark"
+            backgroundColor: "primary.dark",
           }}
         >
           <form className="signUpStyle" onSubmit={handleSubmit}>
@@ -90,15 +90,25 @@ export default function ProfileForm() {
             </label>
             <br />
             <button type="submit" className="signUpButton">
-             Save
+              Save
             </button>
           </form>
         </Box>
       </div>
-      <h2 style={{borderTop: "solid", borderBottom: "solid"}} onClick={() => setShowTrips(!showTrips)}>Trips</h2>
-      {showTrips ? (<ProfileTrips rsvp={users.user.rsvp_events}/>) : (<></>)}
-      <h2 style={{borderTop: "solid", borderBottom: "solid"}} onClick={() => setShowDonation(!showDonation)}>Donations</h2>
-      {showDonation ? (<ProfileDonation />) : (<></>)}
+      <h2
+        style={{ borderTop: "solid", borderBottom: "solid" }}
+        onClick={() => setShowTrips(!showTrips)}
+      >
+        Trips
+      </h2>
+      {showTrips ? <ProfileTrips rsvp={users.user.rsvp_events} /> : <></>}
+      <h2
+        style={{ borderTop: "solid", borderBottom: "solid" }}
+        onClick={() => setShowDonation(!showDonation)}
+      >
+        Donations
+      </h2>
+      {showDonation ? <ProfileDonation donations={users.user.donations} companies={users.user.companies}/> : <></>}
     </>
   );
 }

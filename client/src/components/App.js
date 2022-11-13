@@ -15,7 +15,6 @@ import Blog from './Blog.js';
 import ShowBlog from './ShowBlog.js';
 import Donate from './Donate.js';
 import ProfileForm from '../forms/ProfileForm.js';
-// import NavBar from './components/NavBar.js';
 
 function App() {
   const users = useSelector((store) => store.users);
@@ -83,6 +82,22 @@ function App() {
     setBlogs([...blogs, showBlog])
   };
 
+  const handleEditBlog = (editBlog) => {
+    const updatedItem = blogs.map((blog) => {
+      if (blog.id === editBlog.id) {
+        return editBlog;
+      } else {
+        return blog;
+      }
+    });
+    setBlogs(updatedItem);
+  }
+
+  const showBlogDelete = (id) => {
+    const updatedItem = blogs.filter((blog) => blog.id !== id);
+    setBlogs(updatedItem);
+  }
+
   return (
     <div>
       <Header />
@@ -97,7 +112,7 @@ function App() {
         <Donate companies={company}/>
       </Route>
       <Route exact path="/blog">
-        <Blog handleShowBlog={handleShowBlog} blogs={blogs} handleNewBlog={handleNewBlog}/>
+        <Blog handleShowBlog={handleShowBlog} blogs={blogs} handleNewBlog={handleNewBlog} handleEditBlog={handleEditBlog} showBlogDelete={showBlogDelete}/>
       </Route>
       {users.user.id >0 && (
         <>

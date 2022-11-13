@@ -46,10 +46,6 @@ export default function AddCompany({handleNewCompany}) {
             width: 320,
             height: 275,
             backgroundColor: "primary.dark",
-            //   "&:hover": {
-            //     backgroundColor: "primary.main",
-            //     opacity: [0.9, 0.8, 0.7],
-            //   },
           }}
         >
           <form onSubmit={handleAddCompany} style={{ paddingTop: "1rem" }}>
