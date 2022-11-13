@@ -11,10 +11,10 @@ class UserTripsController < ApplicationController
     end
     
     def update
-      @trip.update(spots: (trip_update.spots + @user_trip.spaces))
-      @user_trip.update!(update_user_trip_params)
-      @trip.update(spots: (trip_update.spots - @user_trip.spaces))
-      render json: user_trip, status: :created 
+      @trip.update(spots: (@trip.spots + @user_trip.spaces))
+      @user_trip.update!(user_trip_params)
+      @trip.update(spots: (@trip.spots - @user_trip.spaces))
+      render json: @user_trip, status: :created 
     end
     
     def destroy 

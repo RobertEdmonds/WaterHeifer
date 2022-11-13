@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import Box from "@mui/material/Box";
+import ProfileTrips from "../components/ProfileTrips";
+import ProfileDonation from "../components/ProfileDonation";
 
 export default function ProfileForm() {
   const users = useSelector((store) => store.users);
@@ -74,9 +76,9 @@ export default function ProfileForm() {
         </Box>
       </div>
       <h2 style={{borderTop: "solid", borderBottom: "solid"}} onClick={() => setShowTrips(!showTrips)}>Trips</h2>
-      {showTrips ? (<h1>Show Trips</h1>) : (<></>)}
+      {showTrips ? (<ProfileTrips rsvp={users.user.rsvp_events}/>) : (<></>)}
       <h2 style={{borderTop: "solid", borderBottom: "solid"}} onClick={() => setShowDonation(!showDonation)}>Donations</h2>
-      {showDonation ? (<h1>Show Donations</h1>) : (<></>)}
+      {showDonation ? (<ProfileDonation />) : (<></>)}
     </>
   );
 }
