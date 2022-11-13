@@ -2,36 +2,73 @@ import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 
-export default function AddCompany({handleNewCompany}) {
-  const [name, setName] = useState("");
-  const [tax, setTax] = useState("");
-  const [description, setDescription] = useState("");
+export default function AddCompany({
+  handleNewCompany,
+  companyName,
+  setCompanyName,
+  tax,
+  setTax,
+  companyDescript,
+  setCompanyDescript,
+  setCompanyId,
+  companyId,
+  setCompanyEdit,
+  companyEdit,
+  handleUpdateCompany,
+}) {
   const [error, setError] = useState([]);
 
   const handleAddCompany = (e) => {
-    e.preventDefault()
-    setError([])
+    e.preventDefault();
+    setError([]);
     const form = {
-        name,
-        tax_number: tax,
-        description,
-    }
+      name: companyName,
+      tax_number: tax,
+      description: companyDescript,
+    };
     fetch("/companies", {
-        method: "POST",
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(form),
     }).then((resp) => {
-        if(resp.ok){
-            resp.json().then(company => handleNewCompany(company))
-            setName("")
-            setTax("")
-            setDescription("")
-        }else{
-            resp.json().then(err => setError(err.errors))
-        }
-    })
+      if (resp.ok) {
+        resp.json().then((company) => handleNewCompany(company));
+        setCompanyName("");
+        setTax("");
+        setCompanyDescript("");
+      } else {
+        resp.json().then((err) => setError(err.errors));
+      }
+    });
+  };
+
+  const handleEditCompany = (e) => {
+    e.preventDefault();
+    const form = {
+      name: companyName,
+      tax_number: tax,
+      description: companyDescript,
+    };
+    fetch(`/companies/${companyId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(form),
+    }).then((resp) => {
+      if (resp.ok) {
+        resp.json().then((company) => handleUpdateCompany(company));
+        setCompanyName("");
+        setTax("");
+        setCompanyDescript("");
+        setCompanyId(0);
+        setCompanyEdit(false);
+      } else {
+        resp.json().then((err) => setError(err.errors));
+      }
+    });
   };
   return (
     <>
@@ -48,7 +85,10 @@ export default function AddCompany({handleNewCompany}) {
             backgroundColor: "primary.dark",
           }}
         >
-          <form onSubmit={handleAddCompany} style={{ paddingTop: "1rem" }}>
+          <form
+            onSubmit={companyEdit ? handleEditCompany : handleAddCompany}
+            style={{ paddingTop: "1rem" }}
+          >
             <label className="createLabel">
               Company Name <br />
               <input
@@ -56,8 +96,8 @@ export default function AddCompany({handleNewCompany}) {
                 style={{ width: "15rem" }}
                 type="text"
                 name="name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                value={companyName}
+                onChange={(e) => setCompanyName(e.target.value)}
               />
             </label>
             <br />
@@ -79,8 +119,8 @@ export default function AddCompany({handleNewCompany}) {
                 className="descriptionStyle"
                 type="text"
                 name="description"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
+                value={companyDescript}
+                onChange={(e) => setCompanyDescript(e.target.value)}
               />
             </label>
             <Button

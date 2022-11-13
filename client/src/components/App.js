@@ -23,6 +23,11 @@ function App() {
   const [blogId, setBlogId] = useState(0)
   const [blogInfo, setBlogInfo] = useState({})
   const [company, setCompany] = useState([])
+  const [companyName, setCompanyName] = useState("");
+  const [tax, setTax] = useState("");
+  const [companyDescript, setCompanyDescript] = useState("");
+  const [companyId, setCompanyId] = useState(0)
+  const [companyEdit, setCompanyEdit] = useState(false)
   const [trips, setTrips] = useState([])
   const history = useHistory()
 
@@ -51,8 +56,25 @@ function App() {
     .then(comp => setCompany(comp))
   }, [])
 
+  const handleUpdateCompany = (editted) => {
+    const updatedItem = company.map((comp) => {
+      if (comp.id === editted.id) {
+        return editted;
+      } else {
+        return comp;
+      }
+    });
+    setCompany(updatedItem);
+
+  }
+
   const handleNewCompany = (newCompany) => {
     setCompany([...company, newCompany])
+  }
+
+  const removeCompany = (id) => {
+    const updatedItem = company.filter((store) => store.id !== id);
+    setCompany(updatedItem);
   }
 
   const handleShowBlog = (showBlog) => {
@@ -109,7 +131,7 @@ function App() {
         <ScheduleTrip trips={trips}/>
       </Route>
       <Route exact path="/donate">
-        <Donate companies={company}/>
+        <Donate companies={company} setCompanyName={setCompanyName} setTax={setTax} setCompanyDescript={setCompanyDescript} setCompanyId={setCompanyId} setCompanyEdit={setCompanyEdit} removeCompany={removeCompany} />
       </Route>
       <Route exact path="/blog">
         <Blog handleShowBlog={handleShowBlog} blogs={blogs} handleNewBlog={handleNewBlog} handleEditBlog={handleEditBlog} showBlogDelete={showBlogDelete}/>
@@ -130,7 +152,7 @@ function App() {
         <CreateTrip handleAddTrip={handleAddTrip}/>
       </Route>
       <Route exact path="/add_company">
-        <AddCompany handleNewCompany={handleNewCompany}/>
+        <AddCompany handleNewCompany={handleNewCompany} companyName={companyName} setCompanyName={setCompanyName} tax={tax} setTax={setTax} companyDescript={companyDescript} setCompanyDescript={setCompanyDescript} setCompanyId={setCompanyId}  companyId={companyId} setCompanyEdit={setCompanyEdit} companyEdit={companyEdit} handleUpdateCompany={handleUpdateCompany}/>
       </Route>
       </>
       )}

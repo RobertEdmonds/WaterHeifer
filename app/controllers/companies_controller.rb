@@ -19,7 +19,7 @@ class CompaniesController < ApplicationController
 
     def update 
         @company.update!(company_params)
-        render json: company, status: :created 
+        render json: @company, status: :created 
     end
 
     def destroy 
