@@ -1,20 +1,40 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { userUpdated } from "../features/users/userSlice";
 import Box from "@mui/material/Box";
 import ProfileTrips from "../components/ProfileTrips";
 import ProfileDonation from "../components/ProfileDonation";
 
 export default function ProfileForm() {
   const users = useSelector((store) => store.users);
+  const dispatch = useDispatch()
   const [email, setEmail] = useState(users.user.email)
   const [name, setName] = useState(users.user.name)
   const [phone, setPhone] = useState(users.user.phone_number)
   const [error, setError] = useState([])
   const [showTrips, setShowTrips] = useState(false)
   const [showDonation, setShowDonation] = useState(false)
-  console.log(users);
-  const handleSubmit = () => {
-
+//   console.log(dispatch(userUpdated));
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const form = {
+        name: name.toUpperCase(),
+        email: email.toUpperCase(),
+        phone_number: phone
+    }
+    fetch(`/user_update`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(form),
+      }).then((resp) => {
+        if (resp.ok) {
+          resp.json().then((user) => dispatch(userUpdated(user)));
+        } else {
+          resp.json((err) => setError(err.errors));
+        }
+      });
   }
 
   return (

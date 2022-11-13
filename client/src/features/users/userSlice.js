@@ -52,7 +52,7 @@ const userSlice = createSlice({
       // const user = state.users.find(
       //   (person) => person.id === action.payload.id
       // );
-      // // user. = action.payload
+      state.user = action.payload
       // console.log(user);
     },
   },
