@@ -18,7 +18,7 @@ class TripsController < ApplicationController
 
     def update 
         @trip.update!(trip_params)
-        render json: trip, status: :created 
+        render json: @trip, status: :created 
     end
 
     def destroy 

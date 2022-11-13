@@ -9,27 +9,37 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import "../styles/CreateTrip.css";
 
-export default function CreateTrip({ handleAddTrip }) {
-  const [location, setLocation] = useState("");
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [start, setStart] = useState(
-    dayjs("Tue Nov 08 2022 00:00:00 GMT-0500 (Eastern Standard Time)")
-  );
-  const [end, setEnd] = useState(
-    dayjs("Tue Nov 08 2022 00:00:00 GMT-0500 (Eastern Standard Time)")
-  );
-  const [spots, setSpots] = useState("");
-  const [cost, setCost] = useState("");
+export default function CreateTrip({
+  handleAddTrip,
+  title,
+  setTitle,
+  cost,
+  setCost,
+  tripDescription,
+  setTripDescription,
+  setStart,
+  start,
+  setEnd,
+  end,
+  location,
+  setLocation,
+  spots,
+  setSpots,
+  setTripId,
+  tripId,
+  setTripEdit,
+  tripEdit,
+  handleUpdateTrip,
+}) {
   const [error, setError] = useState([]);
 
   const handleCreateTrip = (e) => {
     e.preventDefault();
-    setError([])
+    setError([]);
     const form = {
       location,
       title,
-      description,
+      description: tripDescription,
       start_time: start.$d,
       end_time: end.$d,
       spots: parseInt(spots),
@@ -46,7 +56,7 @@ export default function CreateTrip({ handleAddTrip }) {
         resp.json().then((trip) => handleAddTrip(trip));
         setLocation("");
         setTitle("");
-        setDescription("");
+        setTripDescription("");
         setSpots("");
         setCost("");
         setStart(
@@ -55,6 +65,46 @@ export default function CreateTrip({ handleAddTrip }) {
         setEnd(
           dayjs("Tue Nov 08 2022 00:00:00 GMT-0500 (Eastern Standard Time)")
         );
+      } else {
+        resp.json().then((err) => setError(err.errors));
+      }
+    });
+  };
+
+  const handleEditTrip = (e) => {
+    e.preventDefault();
+    setError([]);
+    const form = {
+      location,
+      title,
+      description: tripDescription,
+      start_time: start.$d,
+      end_time: end.$d,
+      spots: parseInt(spots),
+      cost_per_person: cost,
+    };
+    fetch(`/trips/${tripId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(form),
+    }).then((resp) => {
+      if (resp.ok) {
+        resp.json().then((trip) => handleUpdateTrip(trip));
+        setLocation("");
+        setTitle("");
+        setTripDescription("");
+        setSpots("");
+        setCost("");
+        setStart(
+          dayjs("Tue Nov 08 2022 00:00:00 GMT-0500 (Eastern Standard Time)")
+        );
+        setEnd(
+          dayjs("Tue Nov 08 2022 00:00:00 GMT-0500 (Eastern Standard Time)")
+        );
+        setTripEdit(false)
+        setTripId(0)
       } else {
         resp.json().then((err) => setError(err.errors));
       }
@@ -80,7 +130,7 @@ export default function CreateTrip({ handleAddTrip }) {
             //   },
           }}
         >
-          <form onSubmit={handleCreateTrip} style={{ paddingTop: "1rem" }}>
+          <form onSubmit={tripEdit ? handleEditTrip : handleCreateTrip} style={{ paddingTop: "1rem" }}>
             <label className="createLabel">
               Title <br />
               <input
@@ -153,8 +203,8 @@ export default function CreateTrip({ handleAddTrip }) {
                 className="descriptionStyle"
                 type="text"
                 name="description"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
+                value={tripDescription}
+                onChange={(e) => setTripDescription(e.target.value)}
               />
             </label>
             <Button
@@ -162,7 +212,7 @@ export default function CreateTrip({ handleAddTrip }) {
               type="submit"
               style={{ color: "white", fontWeight: "bold" }}
             >
-              Add Trip
+              {tripEdit ? "Update Trip" : "Add Trip"}
             </Button>
           </form>
         </Box>

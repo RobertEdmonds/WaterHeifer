@@ -128,7 +128,7 @@ export default function AddCompany({
               type="submit"
               style={{ color: "white", fontWeight: "bold" }}
             >
-              Add Company
+              {companyEdit ? "Update Company" : "Add Company"}
             </Button>
           </form>
         </Box>
