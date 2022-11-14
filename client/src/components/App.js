@@ -43,6 +43,7 @@ function App() {
   const [cost, setCost] = useState("");
   const [tripId, setTripId] = useState(0);
   const [tripEdit, setTripEdit] = useState(false);
+  const [month, setMonth] = useState('All')
   const history = useHistory();
 
   useEffect(() => {
@@ -55,11 +56,6 @@ function App() {
       .then((trip) => setTrips(trip));
   }, []);
 
-  // const deleteTrip = () => {
-  //   fetch("/user_trips/7", {
-  //     method: "DELETE"
-  //   })
-  // }
   const handleAddTrip = (newTrip) => {
     setTrips([...trips, newTrip]);
   };
@@ -79,6 +75,12 @@ function App() {
     const updatedItem = trips.filter((trip) => trip.id !== id);
     setTrips(updatedItem);
   };
+
+  const filterTrips = trips.filter(trip => {
+    const start = new Date(trip.start_time)
+    if(month === "All") return true;
+    return parseInt(month) === start.getMonth()
+  })
 
   useEffect(() => {
     fetch("/companies")
@@ -159,7 +161,7 @@ function App() {
       </Route>
       <Route exact path="/schedule">
         <ScheduleTrip
-          trips={trips}
+          trips={filterTrips}
           setTitle={setTitle}
           setLocation={setLocation}
           setTripDescription={setTripDescription}
@@ -170,6 +172,8 @@ function App() {
           setTripId={setTripId}
           setTripEdit={setTripEdit}
           removeTrip={removeTrip}
+          month={month}
+          setMonth={setMonth}
         />
       </Route>
       <Route exact path="/donate">

@@ -2,7 +2,7 @@ class UserTrip < ApplicationRecord
   belongs_to :user 
   belongs_to :trip
 
-  validates :trip_id, uniqueness: {scope: [:user_id], message: "Can't signup for same trip twice, try updating your previous reservation"}
+  validates :trip_id, uniqueness: {scope: [:user_id], message: "already has your reservation, try updating your previous reservation"}
   validate :valid_spots 
 
   def valid_spots

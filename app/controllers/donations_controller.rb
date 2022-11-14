@@ -1,7 +1,7 @@
 class DonationsController < ApplicationController
     before_action :set_donation, only: [:update, :destroy]
     before_action :set_company, only: [:update, :destroy]
-    before_action :authorize_user
+    before_action :authorize_user, only: [:update, :destroy]
 
     def create 
         new_donation = current_user.donations.create!(donation_params)

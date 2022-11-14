@@ -7,6 +7,7 @@ export default function RSVPForm({ spots, spaces, id, cost }) {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    setSpot(spot + space)
     const form = {
         spaces: parseInt(space),
         amount: ((parseInt(spaces))*1) * cost,
@@ -18,8 +19,10 @@ export default function RSVPForm({ spots, spaces, id, cost }) {
         },
         body: JSON.stringify(form),
       }).then((resp) => resp.json())
-      .then(update => setSpot((spot + spaces) - update.spaces))
+      .then(update => setSpace(update.spaces))
+      setSpot(spot - space)
   }
+
 
   return (
     <>
@@ -32,7 +35,7 @@ export default function RSVPForm({ spots, spaces, id, cost }) {
             <select
               className=""
               style={{ width: "10rem" }}
-              name="spaces"
+              name="space"
               value={space}
               onChange={(e) => setSpace(e.target.value)}
             >
@@ -42,7 +45,7 @@ export default function RSVPForm({ spots, spaces, id, cost }) {
             </select>
           </label>
           <Button
-            variant="outlined"
+            variant="contained"
             type="submit"
             style={{ color: "darkgreen", fontWeight: "bold" }}
           >

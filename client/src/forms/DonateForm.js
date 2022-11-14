@@ -1,9 +1,13 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import Button from "@mui/material/Button";
 
 export default function DonateForm({ compId, totalD }) {
+  const users = useSelector((store) => store.users);
   const [amount, setAmount] = useState(0);
   const [total, setTotal] = useState(totalD);
+  const history = useHistory()
 
   function handleAmount(pay) {
     setAmount(pay);
@@ -14,6 +18,9 @@ export default function DonateForm({ compId, totalD }) {
       amount: amount,
       company_id: compId,
     };
+    if(users.user.id === undefined){
+      history.push("/login")
+    }else{
     fetch("/donations", {
       method: "POST",
       headers: {
@@ -24,6 +31,7 @@ export default function DonateForm({ compId, totalD }) {
       .then((resp) => resp.json())
       .then((payment) => setTotal(total + payment.amount));
     setAmount(0);
+  }
   };
   return (
     <>

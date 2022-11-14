@@ -1,8 +1,10 @@
+import { useState } from "react";
 import ScheduleForm from "../forms/ScheduleForm";
 import TimeOfTrips from "./TimeOfTrips";
 import Button from "@mui/material/Button";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import TripFilter from "../forms/TripFilter";
 
 export default function ScheduleTrip({
   trips,
@@ -16,9 +18,12 @@ export default function ScheduleTrip({
   setTripId,
   setTripEdit,
   removeTrip,
+  month, 
+  setMonth
 }) {
   const users = useSelector((store) => store.users);
   const history = useHistory()
+  const [showFilter, setShowFilter] = useState(false)
 
   const setEditForm = (trip) => {
     setTitle(trip.title)
@@ -39,8 +44,15 @@ export default function ScheduleTrip({
     }).then(removeTrip(id));
   };
 
+  const handleTripFilter = () => {
+    setShowFilter(!showFilter)
+  }
+
   return (
     <>
+      <h3 onClick={handleTripFilter}>Click To Filter</h3>
+      {showFilter ? <TripFilter month={month} setMonth={setMonth}/> : <></>}
+      {trips.length === 0 && (<h1 style={{color: "red"}}>Sorry No Scheduled Trips At This Time</h1>)}
       {trips.map((trip) => {
         return (
           <div key={trip.id} className="donateColumn">
