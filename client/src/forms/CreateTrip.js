@@ -103,8 +103,8 @@ export default function CreateTrip({
         setEnd(
           dayjs("Tue Nov 08 2022 00:00:00 GMT-0500 (Eastern Standard Time)")
         );
-        setTripEdit(false)
-        setTripId(0)
+        setTripEdit(false);
+        setTripId(0);
       } else {
         resp.json().then((err) => setError(err.errors));
       }
@@ -124,13 +124,12 @@ export default function CreateTrip({
             width: 320,
             height: 450,
             backgroundColor: "primary.dark",
-            //   "&:hover": {
-            //     backgroundColor: "primary.main",
-            //     opacity: [0.9, 0.8, 0.7],
-            //   },
           }}
         >
-          <form onSubmit={tripEdit ? handleEditTrip : handleCreateTrip} style={{ paddingTop: "1rem" }}>
+          <form
+            onSubmit={tripEdit ? handleEditTrip : handleCreateTrip}
+            style={{ paddingTop: "1rem" }}
+          >
             <label className="createLabel">
               Title <br />
               <input

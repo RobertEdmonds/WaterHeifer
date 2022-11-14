@@ -46,7 +46,7 @@ export default function ResponseBlog({ respPost, responder, blogId }) {
     const updatedItem = posts.filter((post) => post.id !== id);
     setPosts(updatedItem);
   };
-  
+
   return (
     <>
       <div className="responseBlog">

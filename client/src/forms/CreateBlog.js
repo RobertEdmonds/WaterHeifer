@@ -2,61 +2,69 @@ import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 
-export default function CreateBlog({handleNewBlog, title, setTitle, post, setPost, edit, setEdit, blogId, handleEditBlog}){
-    // const [title, setTitle] = useState("")
-    // const [post, setPost] = useState("")
-    const [error, setError] = useState([])
+export default function CreateBlog({
+  handleNewBlog,
+  title,
+  setTitle,
+  post,
+  setPost,
+  edit,
+  setEdit,
+  blogId,
+  handleEditBlog,
+}) {
+  const [error, setError] = useState([]);
 
-    const handleAddBlog = (e) => {
-        e.preventDefault()
-        setError([])
-        const form = {
-            title,
-            post
-        }
-        fetch("/blogs", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(form),
-        }).then(resp => {
-            if(resp.ok){
-                resp.json().then(blog => handleNewBlog(blog))
-                setTitle("")
-                setPost("")
-            }else{
-                resp.json().then(err => setError(err.errors))
-            }
-        })
-    }
-
-    const editBlog = (e) => {
-      e.preventDefault()
-      setError([])
-      const form = {
-        title,
-        post, 
+  const handleAddBlog = (e) => {
+    e.preventDefault();
+    setError([]);
+    const form = {
+      title,
+      post,
+    };
+    fetch("/blogs", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(form),
+    }).then((resp) => {
+      if (resp.ok) {
+        resp.json().then((blog) => handleNewBlog(blog));
+        setTitle("");
+        setPost("");
+      } else {
+        resp.json().then((err) => setError(err.errors));
       }
-      fetch(`/blogs/${blogId}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(form)
-      }).then(resp => {
-        if(resp.ok){
-          resp.json().then(blog => handleEditBlog(blog))
-          setTitle("")
-          setPost("")
-          setEdit(false)
-        }else{
-          resp.json().then(err => setError(err.errors))
-        }
-      })
-    }
-    return(
-        <>
+    });
+  };
+
+  const editBlog = (e) => {
+    e.preventDefault();
+    setError([]);
+    const form = {
+      title,
+      post,
+    };
+    fetch(`/blogs/${blogId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(form),
+    }).then((resp) => {
+      if (resp.ok) {
+        resp.json().then((blog) => handleEditBlog(blog));
+        setTitle("");
+        setPost("");
+        setEdit(false);
+      } else {
+        resp.json().then((err) => setError(err.errors));
+      }
+    });
+  };
+  return (
+    <>
       <ul className="errorStyle">
         {error.map((err) => {
           return <li key={err}>{err}</li>;
@@ -70,7 +78,15 @@ export default function CreateBlog({handleNewBlog, title, setTitle, post, setPos
             backgroundColor: "primary.dark",
           }}
         >
-            <h2 style={{color: "white", fontFamily: "CopperPlate", paddingTop: "1rem"}}>Create Blog</h2>
+          <h2
+            style={{
+              color: "white",
+              fontFamily: "CopperPlate",
+              paddingTop: "1rem",
+            }}
+          >
+            Create Blog
+          </h2>
           <form onSubmit={edit ? editBlog : handleAddBlog}>
             <label className="createLabel">
               Title <br />
@@ -106,5 +122,5 @@ export default function CreateBlog({handleNewBlog, title, setTitle, post, setPos
         </Box>
       </div>
     </>
-    )
-} 
+  );
+}

@@ -7,7 +7,7 @@ export default function DonateForm({ compId, totalD }) {
   const users = useSelector((store) => store.users);
   const [amount, setAmount] = useState(0);
   const [total, setTotal] = useState(totalD);
-  const history = useHistory()
+  const history = useHistory();
 
   function handleAmount(pay) {
     setAmount(pay);
@@ -18,20 +18,20 @@ export default function DonateForm({ compId, totalD }) {
       amount: amount,
       company_id: compId,
     };
-    if(users.user.id === undefined){
-      history.push("/login")
-    }else{
-    fetch("/donations", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(form),
-    })
-      .then((resp) => resp.json())
-      .then((payment) => setTotal(total + payment.amount));
-    setAmount(0);
-  }
+    if (users.user.id === undefined) {
+      history.push("/login");
+    } else {
+      fetch("/donations", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(form),
+      })
+        .then((resp) => resp.json())
+        .then((payment) => setTotal(total + payment.amount));
+      setAmount(0);
+    }
   };
   return (
     <>

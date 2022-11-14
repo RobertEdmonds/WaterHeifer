@@ -6,7 +6,6 @@ export default function ProfileTrips({ rsvp }) {
   return (
     <div style={{ height: `${rsvp.length * 24}rem` }}>
       {rsvp.map((trip) => {
-        console.log(trip)
         return (
           <div key={trip.id} className="rsvpStyle">
             <h3 className="donateRow">Location: {trip.location}</h3>

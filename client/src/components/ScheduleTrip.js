@@ -18,24 +18,24 @@ export default function ScheduleTrip({
   setTripId,
   setTripEdit,
   removeTrip,
-  month, 
-  setMonth
+  month,
+  setMonth,
 }) {
   const users = useSelector((store) => store.users);
-  const history = useHistory()
-  const [showFilter, setShowFilter] = useState(false)
+  const history = useHistory();
+  const [showFilter, setShowFilter] = useState(false);
 
   const setEditForm = (trip) => {
-    setTitle(trip.title)
-  setLocation(trip.location)
-  setTripDescription(trip.description)
-  setSpots(trip.spots)
-  setCost(trip.cost_per_person)
-  setStart(trip.start_time)
-  setEnd(trip.end_time)
-  setTripId(trip.id)
-  setTripEdit(true)
-  history.push("/create_trip")
+    setTitle(trip.title);
+    setLocation(trip.location);
+    setTripDescription(trip.description);
+    setSpots(trip.spots);
+    setCost(trip.cost_per_person);
+    setStart(trip.start_time);
+    setEnd(trip.end_time);
+    setTripId(trip.id);
+    setTripEdit(true);
+    history.push("/create_trip");
   };
 
   const deleteTrip = (id) => {
@@ -45,14 +45,16 @@ export default function ScheduleTrip({
   };
 
   const handleTripFilter = () => {
-    setShowFilter(!showFilter)
-  }
+    setShowFilter(!showFilter);
+  };
 
   return (
     <>
       <h3 onClick={handleTripFilter}>Click To Filter</h3>
-      {showFilter ? <TripFilter month={month} setMonth={setMonth}/> : <></>}
-      {trips.length === 0 && (<h1 style={{color: "red"}}>Sorry No Scheduled Trips At This Time</h1>)}
+      {showFilter ? <TripFilter month={month} setMonth={setMonth} /> : <></>}
+      {trips.length === 0 && (
+        <h1 style={{ color: "red" }}>Sorry No Scheduled Trips At This Time</h1>
+      )}
       {trips.map((trip) => {
         return (
           <div key={trip.id} className="donateColumn">
@@ -89,10 +91,7 @@ export default function ScheduleTrip({
                 <Button variant="contained" onClick={() => setEditForm(trip)}>
                   Edit
                 </Button>
-                <Button
-                  variant="contained"
-                  onClick={() => deleteTrip(trip.id)}
-                >
+                <Button variant="contained" onClick={() => deleteTrip(trip.id)}>
                   delete
                 </Button>
               </>

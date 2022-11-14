@@ -2,7 +2,7 @@ import React from "react";
 import Avatar from "@mui/material/Avatar";
 import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
-import Button from '@mui/material/Button';
+import Button from "@mui/material/Button";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory, NavLink } from "react-router-dom";
 import { deleteUser } from "../features/users/userSlice.js";
@@ -31,8 +31,8 @@ function NavBar() {
   };
 
   const handleProfile = () => {
-    history.push("/profile")
-  }
+    history.push("/profile");
+  };
 
   const handleLogOut = () => {
     dispatch(deleteUser());
@@ -49,6 +49,13 @@ function NavBar() {
           Home
         </NavLink>
         <NavLink
+          to="/gallery"
+          className="navBarLinks"
+          activeStyle={{ color: "black" }}
+        >
+          Gallery
+        </NavLink>
+        <NavLink
           to="/schedule"
           className="navBarLinks"
           activeStyle={{ color: "black" }}
@@ -56,13 +63,13 @@ function NavBar() {
           Schedule Trip
         </NavLink>
         {users.user.employee && (
-        <NavLink
-          to="/create_trip"
-          className="navBarLinks"
-          activeStyle={{ color: "black" }}
-        >
-          Create Trip
-        </NavLink>
+          <NavLink
+            to="/create_trip"
+            className="navBarLinks"
+            activeStyle={{ color: "black" }}
+          >
+            Create Trip
+          </NavLink>
         )}
         <NavLink
           to="/donate"
@@ -72,13 +79,13 @@ function NavBar() {
           Donate
         </NavLink>
         {users.user.employee && (
-        <NavLink
-          to="/add_company"
-          className="navBarLinks"
-          activeStyle={{ color: "black" }}
-        >
-          Add Company
-        </NavLink>
+          <NavLink
+            to="/add_company"
+            className="navBarLinks"
+            activeStyle={{ color: "black" }}
+          >
+            Add Company
+          </NavLink>
         )}
         <NavLink
           to="/blog"
@@ -112,9 +119,13 @@ function NavBar() {
               }}
             >
               <Typography sx={{ p: 1 }}>{users.user.name}</Typography>
-              <Button variant="text" onClick={handleProfile}>My Profile</Button>
-              <br/>
-              <Button variant="text" onClick={handleLogOut}>Log Out</Button>
+              <Button variant="text" onClick={handleProfile}>
+                My Profile
+              </Button>
+              <br />
+              <Button variant="text" onClick={handleLogOut}>
+                Log Out
+              </Button>
             </Popover>
           </>
         )}

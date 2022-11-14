@@ -16,7 +16,7 @@ export const addUser = createAsyncThunk("users/addUsers", async (action) => {
   })
     .then((resp) => resp.json())
     .then((user) => user);
-    return signUp
+  return signUp;
 });
 export const logInUser = createAsyncThunk("users/logInUser", async (action) => {
   const loginFetch = await fetch("/login", {
@@ -28,7 +28,7 @@ export const logInUser = createAsyncThunk("users/logInUser", async (action) => {
   })
     .then((resp) => resp.json())
     .then((user) => user);
-    return loginFetch
+  return loginFetch;
 });
 
 export const deleteUser = createAsyncThunk("users/deleteUser", () => {
@@ -52,7 +52,7 @@ const userSlice = createSlice({
       // const user = state.users.find(
       //   (person) => person.id === action.payload.id
       // );
-      state.user = action.payload
+      state.user = action.payload;
       // console.log(user);
     },
   },

@@ -108,7 +108,14 @@ export default function ProfileForm() {
       >
         Donations
       </h2>
-      {showDonation ? <ProfileDonation donations={users.user.donations} companies={users.user.companies}/> : <></>}
+      {showDonation ? (
+        <ProfileDonation
+          donations={users.user.donations}
+          companies={users.user.companies}
+        />
+      ) : (
+        <></>
+      )}
     </>
   );
 }

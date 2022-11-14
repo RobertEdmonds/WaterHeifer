@@ -33,25 +33,21 @@ const LogIn = () => {
 
   return (
     <>
-    <ul>
-    {error.map((err) => {
-        return (
-          <li className="errorStyle" key={err}>
-            {err}
-          </li>
-        );
-      })}
-    </ul>
+      <ul>
+        {error.map((err) => {
+          return (
+            <li className="errorStyle" key={err}>
+              {err}
+            </li>
+          );
+        })}
+      </ul>
       <div className="logInDiv">
         <Box
           sx={{
             width: 300,
             height: 200,
             backgroundColor: "primary.dark",
-            //   "&:hover": {
-            //     backgroundColor: "primary.main",
-            //     opacity: [0.9, 0.8, 0.7],
-            //   },
           }}
         >
           <form className="logInForm" onSubmit={logInForm}>

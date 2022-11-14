@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  namespace :api do
+    post 'uploads/prepare'
+  end
+  resources :pictures, only: [:index, :create]
   resources :response_blogs, only: [:index, :create, :update, :destroy]
   resources :blogs
   resources :donations, only: [:create, :update, :destroy]

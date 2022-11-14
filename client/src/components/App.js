@@ -16,6 +16,7 @@ import Blog from "./Blog.js";
 import ShowBlog from "./ShowBlog.js";
 import Donate from "./Donate.js";
 import ProfileForm from "../forms/ProfileForm.js";
+import Gallery from "./Gallery.js";
 
 function App() {
   const users = useSelector((store) => store.users);
@@ -43,7 +44,7 @@ function App() {
   const [cost, setCost] = useState("");
   const [tripId, setTripId] = useState(0);
   const [tripEdit, setTripEdit] = useState(false);
-  const [month, setMonth] = useState('All')
+  const [month, setMonth] = useState("All");
   const history = useHistory();
 
   useEffect(() => {
@@ -76,11 +77,11 @@ function App() {
     setTrips(updatedItem);
   };
 
-  const filterTrips = trips.filter(trip => {
-    const start = new Date(trip.start_time)
-    if(month === "All") return true;
-    return parseInt(month) === start.getMonth()
-  })
+  const filterTrips = trips.filter((trip) => {
+    const start = new Date(trip.start_time);
+    if (month === "All") return true;
+    return parseInt(month) === start.getMonth();
+  });
 
   useEffect(() => {
     fetch("/companies")
@@ -158,6 +159,9 @@ function App() {
       <br />
       <Route exact path="/">
         <Home />
+      </Route>
+      <Route exact path="/gallery">
+        <Gallery />
       </Route>
       <Route exact path="/schedule">
         <ScheduleTrip

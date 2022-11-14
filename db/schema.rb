@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_27_153006) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_14_162356) do
   create_table "blogs", force: :cascade do |t|
     t.string "title"
     t.text "post"
@@ -37,6 +37,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_27_153006) do
     t.datetime "updated_at", null: false
     t.index ["company_id"], name: "index_donations_on_company_id"
     t.index ["user_id"], name: "index_donations_on_user_id"
+  end
+
+  create_table "pictures", force: :cascade do |t|
+    t.string "picture_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "response_blogs", force: :cascade do |t|
