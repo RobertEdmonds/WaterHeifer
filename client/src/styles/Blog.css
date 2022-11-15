@@ -1,11 +1,11 @@
 .blogColumn{
     float: left;
     width: 29%;
-    margin-left: 2rem;
+    margin-left: 2.5rem;
     margin-bottom: 1rem;
     background-image: url("https://freesvg.org/img/liftarn_Western_border.png");
     background-repeat: no-repeat;
-  background-size: 300px 100px;
+  background-size: cover;
   padding-top: 1rem;
 }
 

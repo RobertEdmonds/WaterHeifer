@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logInUser } from "../features/users/userSlice.js";
@@ -22,15 +22,16 @@ const LogIn = () => {
       password,
     };
     dispatch(logInUser(form));
-    if (users.user.id > 0) {
-      history.push("/");
-      setLoading(false);
-    } else if (users.errors) {
-      setError(users.errors);
-      setLoading(false);
-    }
   };
-
+  useEffect(() => {
+    if (users.user){
+      history.push("/")
+      setLoading(false)
+    }else if (users.errors) {
+      setError(users.errors);
+      setLoading(false)
+    }
+  }, [users, history])
   return (
     <>
       <ul>
@@ -81,6 +82,7 @@ const LogIn = () => {
           </form>
         </Box>
       </div>
+      {!!users.user && history.push("/")}
     </>
   );
 };

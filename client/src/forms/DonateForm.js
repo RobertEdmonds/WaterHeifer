@@ -111,6 +111,7 @@ export default function DonateForm({ compId, totalD }) {
           sx={{
             width: 10,
             height: 25,
+            marginBottom: "2rem",
             backgroundColor: "primary",
             fontFamily: ["Copperplate"].join(","),
             "&:hover": {
@@ -127,7 +128,7 @@ export default function DonateForm({ compId, totalD }) {
         >
           $50
         </Button>
-        <Button variant="contained" size="small" onClick={handleAddPayment}>
+        <Button variant="contained" size="small" sx={{marginBottom: "2rem"}} onClick={handleAddPayment}>
           donate
         </Button>
       </div>

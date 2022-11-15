@@ -1,10 +1,12 @@
 import React, { useEffect } from "react";
+import Button from "@mui/material/Button";
 
 function CloudinaryUpload({
   preset,
   handleUpload,
   buttonText
 }) {
+  
   useEffect(() => {
     window.myWidget = window.cloudinary.createUploadWidget(
       {
@@ -45,9 +47,9 @@ function CloudinaryUpload({
   }, [preset, handleUpload]);
 
   return (
-    <button id="upload_widget">
+    <Button variant="contained" size="small" id="upload_widget">
       {buttonText}
-    </button>
+    </Button>
   );
 }
 

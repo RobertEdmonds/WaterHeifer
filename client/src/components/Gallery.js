@@ -1,14 +1,12 @@
-import { useEffect, useState } from "react"
+import { useEffect } from "react";
+import { useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
 import CloudinaryUpload from '../features/users/CloudinaryUpload.js'
+import "../styles/Gallery.css"
 
-export default function Gallery(){
-    const [pictures, setPictures] = useState([])
-
-    useEffect(() => {
-        fetch("/pictures")
-        .then(resp => resp.json())
-        .then(images => setPictures(images))
-    },[])
+export default function Gallery({pictures, handleAddImage}){
+    const users = useSelector((store) => store.users);
+    const history = useHistory()
 
     const handleUpload = (result) => {
         const form = {
@@ -24,22 +22,29 @@ export default function Gallery(){
             .then(image => handleAddImage(image))
     }
 
-    const handleAddImage = (newImage) =>{
-        setPictures([...pictures, newImage])
-    }
+    useEffect(() => {
+        if(users.user){
+          history.push("/gallery");
+        }
+      },[users.user, history])
+
+
     return(
-        <div>
-            {pictures.map(image => {
-                return(
-                <img key={image.id} src={image.picture_url} alt={image.id} />
-                )
-            })}
+        <>
+        {users.user && users.user.employee && (
             <CloudinaryUpload
                 style={{width: "20rem", height: "15rem"}}
                 preset="liuppdte"
                 handleUpload={handleUpload}
                 buttonText="Add Gallery Picture"
             />
-        </div>
+            )}
+            <br/>
+            {pictures.map(image => {
+                return(
+                <img key={image.id} className="galleryImg" src={image.picture_url} alt={image.id} />
+                )
+            })}
+        </>
     )
 }

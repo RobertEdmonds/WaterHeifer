@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import DonateForm from "../forms/DonateForm";
 import Button from "@mui/material/Button";
@@ -30,6 +31,16 @@ export default function Donate({
     }).then(removeCompany(id));
   };
 
+  useEffect(() => {
+    if (users.user) {
+      history.push("/donate");
+    }
+  }, [users.user, history]);
+
+  const pushToLogin = () => {
+    history.push("/login")
+  }
+
   return (
     <>
       {companies.map((company) => {
@@ -37,7 +48,11 @@ export default function Donate({
           <div key={company.id} className="donateColumn">
             <h3
               className="donateRow"
-              style={{ marginBottom: "1px", fontFamily: "CopperPlate" }}
+              style={{
+                marginBottom: "1px",
+                marginTop: "20px",
+                fontFamily: "CopperPlate",
+              }}
             >
               {company.name}
             </h3>
@@ -53,8 +68,19 @@ export default function Donate({
             >
               {company.description}
             </p>
-            <DonateForm compId={company.id} totalD={company.total_donation} />
-            {users.user.employee && (
+            {!!users.user ? (
+              <DonateForm compId={company.id} totalD={company.total_donation} />
+            ) : (
+              <Button
+                variant="contained"
+                size="small"
+                sx={{ marginBottom: "4.5rem", marginTop: "1.5rem", marginLeft: "4.5rem" }}
+                onClick={pushToLogin}
+              >
+                donate
+              </Button>
+            )}
+            {users.user && users.user.employee && (
               <>
                 <Button
                   variant="contained"

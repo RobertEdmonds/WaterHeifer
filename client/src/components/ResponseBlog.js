@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import RespBlogForm from "../forms/RespBlogForm";
@@ -10,6 +11,7 @@ export default function ResponseBlog({ respPost, responder, blogId }) {
   const [edit, setEdit] = useState(false);
   const [blogPost, setBlogPost] = useState("");
   const [postId, setPostId] = useState(0);
+  const users = useSelector((store) => store.users);
   const handleAddResponse = (newBlog) => {
     setWriter([...writer, newBlog.user]);
     setPosts([
@@ -37,7 +39,7 @@ export default function ResponseBlog({ respPost, responder, blogId }) {
   };
 
   const handlePostDelete = (id) => {
-    fetch(`/blogs/${id}`, {
+    fetch(`/response_blogs/${id}`, {
       method: "DELETE",
     }).then(() => showPostDelete(id));
   };
@@ -63,6 +65,7 @@ export default function ResponseBlog({ respPost, responder, blogId }) {
                 {foundWriter.name}
               </h6>
               <p style={{ marginTop: "5px", fontSize: "small" }}>{post.post}</p>
+              {users.user && users.user.id === post.user_id && (
               <Stack spacing={0.3} direction="row">
                 <Button variant="text" onClick={(e) => handlePostEdit(e, post)}>
                   Edit
@@ -74,6 +77,7 @@ export default function ResponseBlog({ respPost, responder, blogId }) {
                   delete
                 </Button>
               </Stack>
+              )}
             </div>
           );
         })}

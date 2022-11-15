@@ -37,6 +37,7 @@ function NavBar() {
   const handleLogOut = () => {
     dispatch(deleteUser());
   };
+
   return (
     <>
       <div className="navBarDiv">
@@ -62,7 +63,7 @@ function NavBar() {
         >
           Schedule Trip
         </NavLink>
-        {users.user.employee && (
+        {users.user && users.user.employee && (
           <NavLink
             to="/create_trip"
             className="navBarLinks"
@@ -78,7 +79,7 @@ function NavBar() {
         >
           Donate
         </NavLink>
-        {users.user.employee && (
+        {users.user && users.user.employee && (
           <NavLink
             to="/add_company"
             className="navBarLinks"
@@ -94,7 +95,7 @@ function NavBar() {
         >
           Blog
         </NavLink>
-        {users.user.id > 0 && (
+        {users.user && (
           <>
             <button
               className="avatarButton"
@@ -129,7 +130,7 @@ function NavBar() {
             </Popover>
           </>
         )}
-        {users.user.id === undefined && (
+        {!users.user && (
           <div className="navBarLogIn">
             <button className="logInButton" onClick={handleLogIn}>
               Sign In

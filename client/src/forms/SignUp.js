@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import Box from "@mui/material/Box";
@@ -29,14 +29,17 @@ const SignUp = () => {
       password_confirmation: confirmation,
     };
     dispatch(addUser(dataForm));
-    if (users.user.id > 0) {
+  };
+
+  useEffect(() => {
+    if (users.user) {
       history.push("/");
       setLoading(false);
     } else if (users.errors) {
       setError(users.errors);
       setLoading(false);
     }
-  };
+  },[users.user, users.errors, history])
 
   return (
     <>

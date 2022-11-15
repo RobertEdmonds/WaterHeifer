@@ -21,15 +21,18 @@ import Gallery from "./Gallery.js";
 function App() {
   const users = useSelector((store) => store.users);
   const dispatch = useDispatch();
+  // Blogs
   const [blogs, setBlogs] = useState([]);
   const [blogId, setBlogId] = useState(0);
   const [blogInfo, setBlogInfo] = useState({});
+  // Company and Donations
   const [company, setCompany] = useState([]);
   const [companyName, setCompanyName] = useState("");
   const [tax, setTax] = useState("");
   const [companyDescript, setCompanyDescript] = useState("");
   const [companyId, setCompanyId] = useState(0);
   const [companyEdit, setCompanyEdit] = useState(false);
+  // Trips and Schedule Trips
   const [trips, setTrips] = useState([]);
   const [location, setLocation] = useState("");
   const [title, setTitle] = useState("");
@@ -45,12 +48,15 @@ function App() {
   const [tripId, setTripId] = useState(0);
   const [tripEdit, setTripEdit] = useState(false);
   const [month, setMonth] = useState("All");
+  // Gallery 
+  const [pictures, setPictures] = useState([])
   const history = useHistory();
 
   useEffect(() => {
     dispatch(fetchUser());
   }, [dispatch]);
 
+// This is Show, Add, Edit and Delete for Schedule Trips
   useEffect(() => {
     fetch("/trips")
       .then((r) => r.json())
@@ -82,7 +88,7 @@ function App() {
     if (month === "All") return true;
     return parseInt(month) === start.getMonth();
   });
-
+// This is Show, Add, Edit and Delete for Companies and donation
   useEffect(() => {
     fetch("/companies")
       .then((resp) => resp.json())
@@ -109,8 +115,10 @@ function App() {
     setCompany(updatedItem);
   };
 
+// This is Show, Add, Edit and Delete for Blog
+
   const handleShowBlog = (showBlog) => {
-    if (users.user.id === undefined) {
+    if (!users.user) {
       history.push("/login");
     } else {
       fetch(`blogs/${showBlog.id}`).then((resp) => {
@@ -152,6 +160,16 @@ function App() {
     const updatedItem = blogs.filter((blog) => blog.id !== id);
     setBlogs(updatedItem);
   };
+// This is show and add for Gallery
+useEffect(() => {
+  fetch("/pictures")
+  .then(resp => resp.json())
+  .then(images => setPictures(images))
+},[])
+
+const handleAddImage = (newImage) =>{
+  setPictures([...pictures, newImage])
+}
 
   return (
     <div>
@@ -161,7 +179,7 @@ function App() {
         <Home />
       </Route>
       <Route exact path="/gallery">
-        <Gallery />
+        <Gallery pictures={pictures} handleAddImage={handleAddImage}/>
       </Route>
       <Route exact path="/schedule">
         <ScheduleTrip
@@ -200,7 +218,7 @@ function App() {
           showBlogDelete={showBlogDelete}
         />
       </Route>
-      {users.user.id > 0 && (
+      {users.user && (
         <>
           <Route exact path={`/blog/${blogId}`}>
             <ShowBlog blogInfo={blogInfo} />
@@ -210,7 +228,7 @@ function App() {
           </Route>
         </>
       )}
-      {users.user.employee && (
+      {users.user && users.user.employee && (
         <>
           <Route exact path="/create_trip">
             <CreateTrip
@@ -254,7 +272,6 @@ function App() {
           </Route>
         </>
       )}
-      {users.user.id === undefined && (
         <>
           <Route exact path="/signup">
             <SignUp />
@@ -263,7 +280,6 @@ function App() {
             <LogIn />
           </Route>
         </>
-      )}
     </div>
   );
 }

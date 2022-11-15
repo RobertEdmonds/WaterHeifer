@@ -36,8 +36,8 @@ export const deleteUser = createAsyncThunk("users/deleteUser", () => {
 });
 
 const initialState = {
-  user: [],
-  errors: [],
+  user: null,
+  errors: null,
   status: "idle",
 };
 
@@ -66,9 +66,9 @@ const userSlice = createSlice({
         state.status = "idle";
       } else {
         state.user = [];
-        state.errors = [];
+        state.errors = null;
         state.user = action.payload;
-        state.status = "idle";
+        state.status = "idle"; 
       }
     },
     [addUser.rejected](state, action) {
@@ -80,11 +80,11 @@ const userSlice = createSlice({
     },
     [fetchUser.fulfilled](state, action) {
       if (!!action.payload.errors === true || !!action.payload.error === true) {
-        state.errors = [];
-        state.user = [];
+        state.errors = null;
+        state.user = null;
         state.status = "idle";
       } else {
-        state.errors = [];
+        state.errors = null;
         state.user = [];
         state.user = action.payload;
         state.status = "idle";
@@ -102,7 +102,7 @@ const userSlice = createSlice({
         state.status = "idle";
       } else {
         state.user = [];
-        state.errors = [];
+        state.errors = null;
         state.user = action.payload;
         state.status = "idle";
       }
@@ -114,7 +114,7 @@ const userSlice = createSlice({
       state.status = "loading";
     },
     [deleteUser.fulfilled](state) {
-      state.user = [];
+      state.user = null;
       state.status = "idle";
     },
   },

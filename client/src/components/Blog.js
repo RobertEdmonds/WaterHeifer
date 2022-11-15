@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import CreateBlog from "../forms/CreateBlog";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
+import { useHistory } from "react-router-dom";
 import "../styles/Blog.css";
 
 export default function Blog({
@@ -17,6 +18,13 @@ export default function Blog({
   const [post, setPost] = useState("");
   const [edit, setEdit] = useState(false);
   const [blogId, setBlogId] = useState(0);
+  const history = useHistory()
+
+  useEffect(() => {
+    if(users.user){
+      history.push("/blog");
+    }
+  },[users.user, history])
 
   const handleBlogEdit = (e, blog) => {
     e.stopPropagation();
@@ -43,7 +51,7 @@ export default function Blog({
         <h3 className="blogRow" style={{ marginBottom: "1px" }}>
           {blog.title}
         </h3>
-        {users.user.id === blog.user.id && (
+        {users.user && users.user.id === blog.user.id && (
           <Stack spacing={2} direction="row">
             <Button
               variant="text"
@@ -69,7 +77,7 @@ export default function Blog({
 
   return (
     <>
-      {users.user.id > 0 && (
+      {users.user && (
         <CreateBlog
           handleNewBlog={handleNewBlog}
           title={title}
@@ -82,8 +90,12 @@ export default function Blog({
           handleEditBlog={handleEditBlog}
         />
       )}
+      <div>
+      <h3 style={{textAlign: "center",}}>Click On Title To Open</h3>
+      </div>
       <br />
       {displayBlog}
+      
     </>
   );
 }

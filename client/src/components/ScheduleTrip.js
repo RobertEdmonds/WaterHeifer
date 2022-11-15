@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ScheduleForm from "../forms/ScheduleForm";
 import TimeOfTrips from "./TimeOfTrips";
 import Button from "@mui/material/Button";
@@ -25,6 +25,16 @@ export default function ScheduleTrip({
   const history = useHistory();
   const [showFilter, setShowFilter] = useState(false);
 
+  useEffect(() => {
+    if (users.user) {
+      history.push("/schedule");
+    }
+  }, [users.user, history]);
+
+  const pushToLogin = () => {
+    history.push("/login")
+  }
+
   const setEditForm = (trip) => {
     setTitle(trip.title);
     setLocation(trip.location);
@@ -47,6 +57,7 @@ export default function ScheduleTrip({
   const handleTripFilter = () => {
     setShowFilter(!showFilter);
   };
+
 
   return (
     <>
@@ -85,8 +96,19 @@ export default function ScheduleTrip({
               {trip.description}
             </p>
             <TimeOfTrips startTime={trip.start_time} endTime={trip.end_time} />
-            <ScheduleForm oneTrip={trip} />
-            {users.user.employee && (
+            {!!users.user ? (
+              <ScheduleForm oneTrip={trip} />
+            ) : (
+              <Button
+                variant="outlined"
+                onClick={pushToLogin}
+                className="donateRow"
+                style={{ color: "darkgreen", fontWeight: "bold", marginBottom: "6rem", marginLeft: "4.5rem" }}
+              >
+                Reserve
+              </Button>
+            )}
+            {users.user && users.user.employee && (
               <>
                 <Button variant="contained" onClick={() => setEditForm(trip)}>
                   Edit
