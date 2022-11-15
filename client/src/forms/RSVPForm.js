@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Button from "@mui/material/Button";
 
-export default function RSVPForm({ spots, spaces, id, cost }) {
+export default function RSVPForm({ spots, spaces, id, cost, showRSVPRemoval }) {
   const [spot, setSpot] = useState(spots);
   const [space, setSpace] = useState(spaces);
 
@@ -23,6 +23,12 @@ export default function RSVPForm({ spots, spaces, id, cost }) {
       .then((update) => setSpace(update.spaces));
     setSpot(spot - space);
   };
+
+  const cancelTrip = () => {
+    fetch(`/user_trips/${id}`, {
+      method: "Delete"
+    }).then(() => showRSVPRemoval(id))
+  }
 
   return (
     <>
@@ -61,6 +67,13 @@ export default function RSVPForm({ spots, spaces, id, cost }) {
             update
           </Button>
         </form>
+        <Button
+            variant="contained"
+            onClick={cancelTrip}
+            style={{ color: "darkgreen", fontWeight: "bold" }}
+          >
+            cancel
+          </Button>
       </h3>
     </>
   );

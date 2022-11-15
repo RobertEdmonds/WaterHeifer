@@ -12,6 +12,7 @@ export default function ProfileForm() {
   const [name, setName] = useState(users.user.name);
   const [phone, setPhone] = useState(users.user.phone_number);
   const [error, setError] = useState([]);
+  const [trips, setTrips] = useState([])
   const [showTrips, setShowTrips] = useState(false);
   const [showDonation, setShowDonation] = useState(false);
 
@@ -36,6 +37,16 @@ export default function ProfileForm() {
       }
     });
   };
+
+  const handleShowTrips = () => {
+    setTrips(users.user.rsvp_events)
+    setShowTrips(!showTrips)
+  }
+
+  const showRSVPRemoval = (oldId) => {
+    const updatedItem = trips.filter((trip) => trip.reservation_id !== oldId);
+    setTrips(updatedItem);
+  }
 
   return (
     <>
@@ -97,11 +108,11 @@ export default function ProfileForm() {
       </div>
       <h2
         style={{ borderTop: "solid", borderBottom: "solid" }}
-        onClick={() => setShowTrips(!showTrips)}
+        onClick={handleShowTrips}
       >
         Trips
       </h2>
-      {showTrips ? <ProfileTrips rsvp={users.user.rsvp_events} /> : <></>}
+      {showTrips ? <ProfileTrips rsvp={trips} showRSVPRemoval={showRSVPRemoval}/> : <></>}
       <h2
         style={{ borderTop: "solid", borderBottom: "solid" }}
         onClick={() => setShowDonation(!showDonation)}

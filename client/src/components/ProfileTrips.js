@@ -2,7 +2,7 @@ import RSVPForm from "../forms/RSVPForm";
 import TimeOfTrips from "./TimeOfTrips";
 import "../styles/ProfileTrips.css";
 
-export default function ProfileTrips({ rsvp }) {
+export default function ProfileTrips({ rsvp, showRSVPRemoval }) {
   return (
     <div style={{ height: `${rsvp.length * 24}rem` }}>
       {rsvp.map((trip) => {
@@ -16,6 +16,7 @@ export default function ProfileTrips({ rsvp }) {
               id={trip.reservation_id}
               amountOwe={trip.amount_owe}
               cost={trip.cost_per_person}
+              showRSVPRemoval={showRSVPRemoval}
             />
           </div>
         );

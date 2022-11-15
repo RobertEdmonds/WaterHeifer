@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#create'
   delete '/logout', to: "sessions#destroy"
   patch "/user_update", to: 'users#update'
-  patch "/user_employee_update", to: 'users#update_employee'
+  patch "/user_employee_update/:id", to: 'users#update_employee'
   # Defines the root path route ("/")
   # root "articles#index"
 end

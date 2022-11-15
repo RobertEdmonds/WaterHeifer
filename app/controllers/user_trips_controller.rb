@@ -18,7 +18,7 @@ class UserTripsController < ApplicationController
     end
     
     def destroy 
-      @trip.update(spots: (trip_update.spots + @user_trip.spaces))
+      @trip.update(spots: (@trip.spots + @user_trip.spaces))
       @user_trip.destroy 
       head :no_content
     end

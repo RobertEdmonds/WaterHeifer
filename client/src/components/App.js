@@ -17,6 +17,7 @@ import ShowBlog from "./ShowBlog.js";
 import Donate from "./Donate.js";
 import ProfileForm from "../forms/ProfileForm.js";
 import Gallery from "./Gallery.js";
+import CustomerList from "./CustomerList.js";
 
 function App() {
   const users = useSelector((store) => store.users);
@@ -269,6 +270,9 @@ const handleAddImage = (newImage) =>{
               companyEdit={companyEdit}
               handleUpdateCompany={handleUpdateCompany}
             />
+          </Route>
+          <Route exact path="/customers">
+            <CustomerList />
           </Route>
         </>
       )}

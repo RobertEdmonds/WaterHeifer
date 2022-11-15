@@ -34,6 +34,10 @@ function NavBar() {
     history.push("/profile");
   };
 
+  const handleCustomers = () => {
+    history.push("/customers")
+  }
+
   const handleLogOut = () => {
     dispatch(deleteUser());
   };
@@ -127,6 +131,11 @@ function NavBar() {
               <Button variant="text" onClick={handleLogOut}>
                 Log Out
               </Button>
+              {users.user && users.user.employee && (
+                <Button variant="text" onClick={handleCustomers}>
+                Customer List
+              </Button>
+              )}
             </Popover>
           </>
         )}
