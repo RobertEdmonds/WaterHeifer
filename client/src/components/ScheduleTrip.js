@@ -32,8 +32,8 @@ export default function ScheduleTrip({
   }, [users.user, history]);
 
   const pushToLogin = () => {
-    history.push("/login")
-  }
+    history.push("/login");
+  };
 
   const setEditForm = (trip) => {
     setTitle(trip.title);
@@ -57,7 +57,6 @@ export default function ScheduleTrip({
   const handleTripFilter = () => {
     setShowFilter(!showFilter);
   };
-
 
   return (
     <>
@@ -103,7 +102,12 @@ export default function ScheduleTrip({
                 variant="outlined"
                 onClick={pushToLogin}
                 className="donateRow"
-                style={{ color: "darkgreen", fontWeight: "bold", marginBottom: "6rem", marginLeft: "4.5rem" }}
+                style={{
+                  color: "darkgreen",
+                  fontWeight: "bold",
+                  marginBottom: "6rem",
+                  marginLeft: "4.5rem",
+                }}
               >
                 Reserve
               </Button>

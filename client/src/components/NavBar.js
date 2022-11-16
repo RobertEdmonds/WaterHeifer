@@ -35,8 +35,8 @@ function NavBar() {
   };
 
   const handleCustomers = () => {
-    history.push("/customers")
-  }
+    history.push("/customers");
+  };
 
   const handleLogOut = () => {
     dispatch(deleteUser());
@@ -133,8 +133,8 @@ function NavBar() {
               </Button>
               {users.user && users.user.employee && (
                 <Button variant="text" onClick={handleCustomers}>
-                Customer List
-              </Button>
+                  Customer List
+                </Button>
               )}
             </Popover>
           </>

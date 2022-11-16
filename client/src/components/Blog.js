@@ -18,13 +18,13 @@ export default function Blog({
   const [post, setPost] = useState("");
   const [edit, setEdit] = useState(false);
   const [blogId, setBlogId] = useState(0);
-  const history = useHistory()
+  const history = useHistory();
 
   useEffect(() => {
-    if(users.user){
+    if (users.user) {
       history.push("/blog");
     }
-  },[users.user, history])
+  }, [users.user, history]);
 
   const handleBlogEdit = (e, blog) => {
     e.stopPropagation();
@@ -91,11 +91,10 @@ export default function Blog({
         />
       )}
       <div>
-      <h3 style={{textAlign: "center",}}>Click On Title To Open</h3>
+        <h3 style={{ textAlign: "center" }}>Click On Title To Open</h3>
       </div>
       <br />
       {displayBlog}
-      
     </>
   );
 }

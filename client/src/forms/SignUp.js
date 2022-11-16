@@ -39,7 +39,7 @@ const SignUp = () => {
       setError(users.errors);
       setLoading(false);
     }
-  },[users.user, users.errors, history])
+  }, [users.user, users.errors, history]);
 
   return (
     <>

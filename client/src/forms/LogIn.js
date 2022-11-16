@@ -24,14 +24,14 @@ const LogIn = () => {
     dispatch(logInUser(form));
   };
   useEffect(() => {
-    if (users.user){
-      history.push("/")
-      setLoading(false)
-    }else if (users.errors) {
+    if (users.user) {
+      history.push("/");
+      setLoading(false);
+    } else if (users.errors) {
       setError(users.errors);
-      setLoading(false)
+      setLoading(false);
     }
-  }, [users, history])
+  }, [users, history]);
   return (
     <>
       <ul>

@@ -49,15 +49,15 @@ function App() {
   const [tripId, setTripId] = useState(0);
   const [tripEdit, setTripEdit] = useState(false);
   const [month, setMonth] = useState("All");
-  // Gallery 
-  const [pictures, setPictures] = useState([])
+  // Gallery
+  const [pictures, setPictures] = useState([]);
   const history = useHistory();
 
   useEffect(() => {
     dispatch(fetchUser());
   }, [dispatch]);
 
-// This is Show, Add, Edit and Delete for Schedule Trips
+  // This is Show, Add, Edit and Delete for Schedule Trips
   useEffect(() => {
     fetch("/trips")
       .then((r) => r.json())
@@ -89,7 +89,7 @@ function App() {
     if (month === "All") return true;
     return parseInt(month) === start.getMonth();
   });
-// This is Show, Add, Edit and Delete for Companies and donation
+  // This is Show, Add, Edit and Delete for Companies and donation
   useEffect(() => {
     fetch("/companies")
       .then((resp) => resp.json())
@@ -116,7 +116,7 @@ function App() {
     setCompany(updatedItem);
   };
 
-// This is Show, Add, Edit and Delete for Blog
+  // This is Show, Add, Edit and Delete for Blog
 
   const handleShowBlog = (showBlog) => {
     if (!users.user) {
@@ -161,16 +161,16 @@ function App() {
     const updatedItem = blogs.filter((blog) => blog.id !== id);
     setBlogs(updatedItem);
   };
-// This is show and add for Gallery
-useEffect(() => {
-  fetch("/pictures")
-  .then(resp => resp.json())
-  .then(images => setPictures(images))
-},[])
+  // This is show and add for Gallery
+  useEffect(() => {
+    fetch("/pictures")
+      .then((resp) => resp.json())
+      .then((images) => setPictures(images));
+  }, []);
 
-const handleAddImage = (newImage) =>{
-  setPictures([...pictures, newImage])
-}
+  const handleAddImage = (newImage) => {
+    setPictures([...pictures, newImage]);
+  };
 
   return (
     <div>
@@ -180,7 +180,7 @@ const handleAddImage = (newImage) =>{
         <Home />
       </Route>
       <Route exact path="/gallery">
-        <Gallery pictures={pictures} handleAddImage={handleAddImage}/>
+        <Gallery pictures={pictures} handleAddImage={handleAddImage} />
       </Route>
       <Route exact path="/schedule">
         <ScheduleTrip
@@ -276,14 +276,14 @@ const handleAddImage = (newImage) =>{
           </Route>
         </>
       )}
-        <>
-          <Route exact path="/signup">
-            <SignUp />
-          </Route>
-          <Route exact path="/login">
-            <LogIn />
-          </Route>
-        </>
+      <>
+        <Route exact path="/signup">
+          <SignUp />
+        </Route>
+        <Route exact path="/login">
+          <LogIn />
+        </Route>
+      </>
     </div>
   );
 }

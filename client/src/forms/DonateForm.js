@@ -128,7 +128,12 @@ export default function DonateForm({ compId, totalD }) {
         >
           $50
         </Button>
-        <Button variant="contained" size="small" sx={{marginBottom: "2rem"}} onClick={handleAddPayment}>
+        <Button
+          variant="contained"
+          size="small"
+          sx={{ marginBottom: "2rem" }}
+          onClick={handleAddPayment}
+        >
           donate
         </Button>
       </div>

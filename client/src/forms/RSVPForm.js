@@ -4,10 +4,10 @@ import Button from "@mui/material/Button";
 export default function RSVPForm({ spots, spaces, id, cost, showRSVPRemoval }) {
   const [spot, setSpot] = useState(spots);
   const [space, setSpace] = useState(spaces);
+  const [oldSpaces, setOldSpaces] = useState(spaces);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setSpot(spot + space);
     const form = {
       spaces: parseInt(space),
       amount: parseInt(spaces) * 1 * cost,
@@ -20,15 +20,19 @@ export default function RSVPForm({ spots, spaces, id, cost, showRSVPRemoval }) {
       body: JSON.stringify(form),
     })
       .then((resp) => resp.json())
-      .then((update) => setSpace(update.spaces));
-    setSpot(spot - space);
+      .then((update) => handleUpdateSpots(update.spaces));
+  };
+
+  const handleUpdateSpots = (newSpaces) => {
+    setSpot(spot + oldSpaces - space);
+    setOldSpaces(newSpaces);
   };
 
   const cancelTrip = () => {
     fetch(`/user_trips/${id}`, {
-      method: "Delete"
-    }).then(() => showRSVPRemoval(id))
-  }
+      method: "Delete",
+    }).then(() => showRSVPRemoval(id));
+  };
 
   return (
     <>
@@ -68,12 +72,12 @@ export default function RSVPForm({ spots, spaces, id, cost, showRSVPRemoval }) {
           </Button>
         </form>
         <Button
-            variant="contained"
-            onClick={cancelTrip}
-            style={{ color: "darkgreen", fontWeight: "bold" }}
-          >
-            cancel
-          </Button>
+          variant="contained"
+          onClick={cancelTrip}
+          style={{ color: "darkgreen", fontWeight: "bold" }}
+        >
+          cancel
+        </Button>
       </h3>
     </>
   );

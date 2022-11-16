@@ -38,8 +38,8 @@ export default function Donate({
   }, [users.user, history]);
 
   const pushToLogin = () => {
-    history.push("/login")
-  }
+    history.push("/login");
+  };
 
   return (
     <>
@@ -74,7 +74,11 @@ export default function Donate({
               <Button
                 variant="contained"
                 size="small"
-                sx={{ marginBottom: "4.5rem", marginTop: "1.5rem", marginLeft: "4.5rem" }}
+                sx={{
+                  marginBottom: "4.5rem",
+                  marginTop: "1.5rem",
+                  marginLeft: "4.5rem",
+                }}
                 onClick={pushToLogin}
               >
                 donate

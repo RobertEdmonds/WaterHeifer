@@ -66,17 +66,20 @@ export default function ResponseBlog({ respPost, responder, blogId }) {
               </h6>
               <p style={{ marginTop: "5px", fontSize: "small" }}>{post.post}</p>
               {users.user && users.user.id === post.user_id && (
-              <Stack spacing={0.3} direction="row">
-                <Button variant="text" onClick={(e) => handlePostEdit(e, post)}>
-                  Edit
-                </Button>
-                <Button
-                  variant="text"
-                  onClick={() => handlePostDelete(post.id)}
-                >
-                  delete
-                </Button>
-              </Stack>
+                <Stack spacing={0.3} direction="row">
+                  <Button
+                    variant="text"
+                    onClick={(e) => handlePostEdit(e, post)}
+                  >
+                    Edit
+                  </Button>
+                  <Button
+                    variant="text"
+                    onClick={() => handlePostDelete(post.id)}
+                  >
+                    delete
+                  </Button>
+                </Stack>
               )}
             </div>
           );
