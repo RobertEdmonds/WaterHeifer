@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { userUpdated } from "../features/users/userSlice";
+import { userUpdated, fetchUser } from "../features/users/userSlice";
 import Box from "@mui/material/Box";
 import ProfileTrips from "../components/ProfileTrips";
 import ProfileDonation from "../components/ProfileDonation";
@@ -15,6 +15,10 @@ export default function ProfileForm() {
   const [trips, setTrips] = useState([]);
   const [showTrips, setShowTrips] = useState(false);
   const [showDonation, setShowDonation] = useState(false);
+
+  useEffect(() => {
+    dispatch(fetchUser());
+  }, [dispatch]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
