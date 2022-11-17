@@ -4,7 +4,7 @@ class UsersController < ApplicationController
     rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity 
 
     def index 
-        render json: User.all, status: :ok 
+        render json: User.all, include: ["users"], status: :ok 
     end
 
     def create

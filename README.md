@@ -49,3 +49,5 @@ This website is for anglers(fishermen) to be able to schedule a guided fishing t
     * password: Hello
 
 ## Links 
+* [Video Walk Through](https://youtu.be/9DXDHDTXYMw)
+* [Blog Link](https://medium.com/@bobby.edmonds89/redux-for-the-user-in-react-330551156bfc)

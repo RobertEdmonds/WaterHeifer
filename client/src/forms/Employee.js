@@ -21,8 +21,8 @@ export default function Employee({ id, status }) {
     <Button
       variant="text"
       className="blogRow"
-      onClick={() => handleEmployee}
-      style={{ color: "darkred", fontWeight: "bold", width: "20%" }}
+      onClick={handleEmployee}
+      style={{ color: "darkred", fontWeight: "bold", width: "40%" }}
     >
       {employee ? "Employee" : "Not Employee"}
     </Button>

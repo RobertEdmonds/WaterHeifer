@@ -45,15 +45,8 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    userAdded(state, action) {
-      state.errors.push(action.payload);
-    },
     userUpdated(state, action) {
-      // const user = state.users.find(
-      //   (person) => person.id === action.payload.id
-      // );
       state.user = action.payload;
-      // console.log(user);
     },
   },
   extraReducers: {
@@ -120,5 +113,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { userAdded, userUpdated } = userSlice.actions;
+export const { userUpdated } = userSlice.actions;
 export default userSlice.reducer;

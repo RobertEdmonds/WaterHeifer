@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import React from "react";
 import { useHistory, Route } from "react-router-dom";
-// import { fetchUser, addUser, deleteUser, logInUser} from './features/users/userSlice.js'
 import { fetchUser } from "../features/users/userSlice.js";
 import dayjs from "dayjs";
 import Home from "./Home.js";
@@ -250,7 +249,7 @@ function App() {
               setSpots={setSpots}
               setTripId={setTripId}
               tripId={tripId}
-              setCompanyEdit={setTripEdit}
+              setTripEdit={setTripEdit}
               tripEdit={tripEdit}
               handleUpdateTrip={handleUpdateTrip}
             />
