@@ -1,6 +1,9 @@
 import ResponseBlog from "./ResponseBlog";
+import { useHistory } from "react-router-dom";
 
-export default function ShowBlog({ blogInfo }) {
+export default function ShowBlog({ blogInfo, blogId }) {
+  const history = useHistory()
+
   return (
     <>
       <div
@@ -18,7 +21,7 @@ export default function ShowBlog({ blogInfo }) {
       <ResponseBlog
         respPost={blogInfo.response_blogs}
         responder={blogInfo.responders}
-        blogId={blogInfo.id}
+        blogId={blogId}
       />
     </>
   );

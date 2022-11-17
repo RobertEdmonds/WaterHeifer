@@ -40,6 +40,7 @@ function NavBar() {
 
   const handleLogOut = () => {
     dispatch(deleteUser());
+    history.push("/")
   };
 
   return (

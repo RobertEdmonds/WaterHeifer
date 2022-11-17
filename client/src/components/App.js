@@ -23,7 +23,7 @@ function App() {
   const dispatch = useDispatch();
   // Blogs
   const [blogs, setBlogs] = useState([]);
-  const [blogId, setBlogId] = useState(0);
+  const [blogId, setBlogId] = useState(null);
   const [blogInfo, setBlogInfo] = useState({});
   // Company and Donations
   const [company, setCompany] = useState([]);
@@ -86,7 +86,7 @@ function App() {
   const filterTrips = trips.filter((trip) => {
     const start = new Date(trip.start_time);
     if (month === "All") return true;
-    return parseInt(month) === start.getMonth();
+    return parseInt(month) === (start.getMonth() + 1);
   });
   // This is Show, Add, Edit and Delete for Companies and donation
   useEffect(() => {
@@ -126,7 +126,7 @@ function App() {
           resp.json().then((blog) => {
             setBlogInfo(blog);
             setBlogId(blog.id);
-            history.push(`/blog/${blog.id}`);
+            history.push(`/blog/show`)
           });
         } else {
           resp.json().then((err) => setBlogInfo(err));
@@ -134,6 +134,7 @@ function App() {
       });
     }
   };
+
 
   useEffect(() => {
     fetch("/blogs")
@@ -220,8 +221,8 @@ function App() {
       </Route>
       {users.user && (
         <>
-          <Route exact path={`/blog/${blogId}`}>
-            <ShowBlog blogInfo={blogInfo} />
+          <Route exact path={`/blog/show`}>
+            <ShowBlog blogInfo={blogInfo} blogId={blogId}/>
           </Route>
           <Route exact path="/profile">
             <ProfileForm />

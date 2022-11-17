@@ -18,7 +18,7 @@ export default function TimeOfTrips({ startTime, endTime }) {
         className="donateRow"
         style={{ marginBottom: "1rem", marginTop: "1px" }}
       >
-        {start.getMonth()}/{start.getDate()}/{start.getFullYear()} Time{" "}
+        {(start.getMonth() + 1)}/{start.getDate()}/{start.getFullYear()} Time{" "}
         {start.getHours()}:{start.getMinutes()}
       </p>
       <h5
@@ -35,7 +35,7 @@ export default function TimeOfTrips({ startTime, endTime }) {
         className="donateRow"
         style={{ marginBottom: "1rem", marginTop: "1px" }}
       >
-        {end.getMonth()}/{end.getDate()}/{end.getFullYear()} Time{" "}
+        {(end.getMonth() + 1)}/{end.getDate()}/{end.getFullYear()} Time{" "}
         {end.getHours()}:{end.getMinutes()}
       </p>
     </>
