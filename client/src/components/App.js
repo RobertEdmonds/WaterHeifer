@@ -126,7 +126,7 @@ function App() {
           resp.json().then((blog) => {
             setBlogInfo(blog);
             setBlogId(blog.id);
-            history.push(`/blog/show`)
+            history.push(`/blog/${blog.id}`)
           });
         } else {
           resp.json().then((err) => setBlogInfo(err));
@@ -221,7 +221,7 @@ function App() {
       </Route>
       {users.user && (
         <>
-          <Route exact path={`/blog/show`}>
+          <Route exact path={`/blog/${blogId}`}>
             <ShowBlog blogInfo={blogInfo} blogId={blogId}/>
           </Route>
           <Route exact path="/profile">
