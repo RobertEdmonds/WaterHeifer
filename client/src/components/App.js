@@ -23,8 +23,9 @@ function App() {
   const dispatch = useDispatch();
   // Blogs
   const [blogs, setBlogs] = useState([]);
-  const [blogId, setBlogId] = useState(null);
+  // const [blogId, setBlogId] = useState(null);
   const [blogInfo, setBlogInfo] = useState({});
+  // const { id } = useParams()
   // Company and Donations
   const [company, setCompany] = useState([]);
   const [companyName, setCompanyName] = useState("");
@@ -121,20 +122,9 @@ function App() {
     if (!users.user) {
       history.push("/login");
     } else {
-      fetch(`blogs/${showBlog.id}`).then((resp) => {
-        if (resp.ok) {
-          resp.json().then((blog) => {
-            setBlogInfo(blog);
-            setBlogId(blog.id);
-            history.push(`/blog/${blog.id}`)
-          });
-        } else {
-          resp.json().then((err) => setBlogInfo(err));
-        }
-      });
+      history.push(`/blogs/${showBlog.id}`)
     }
   };
-
 
   useEffect(() => {
     fetch("/blogs")
@@ -173,7 +163,7 @@ function App() {
   };
 
   return (
-    <div>
+    <div className="wholeApp">
       <Header />
       <br />
       <Route exact path="/">
@@ -182,7 +172,7 @@ function App() {
       <Route exact path="/gallery">
         <Gallery pictures={pictures} handleAddImage={handleAddImage} />
       </Route>
-      <Route exact path="/schedule">
+      <Route exact path="/schedules">
         <ScheduleTrip
           trips={filterTrips}
           setTitle={setTitle}
@@ -210,7 +200,7 @@ function App() {
           removeCompany={removeCompany}
         />
       </Route>
-      <Route exact path="/blog">
+      <Route exact path="/blogs">
         <Blog
           handleShowBlog={handleShowBlog}
           blogs={blogs}
@@ -221,8 +211,8 @@ function App() {
       </Route>
       {users.user && (
         <>
-          <Route exact path={`/blog/${blogId}`}>
-            <ShowBlog blogInfo={blogInfo} blogId={blogId}/>
+          <Route path={`/blogs/:id`}>
+            <ShowBlog blogInfo={blogInfo} setBlogInfo={setBlogInfo} blogs={blogs}/>
           </Route>
           <Route exact path="/profile">
             <ProfileForm />
@@ -231,7 +221,7 @@ function App() {
       )}
       {users.user && users.user.employee && (
         <>
-          <Route exact path="/create_trip">
+          <Route exact path="/add_trips">
             <CreateTrip
               handleAddTrip={handleAddTrip}
               title={title}

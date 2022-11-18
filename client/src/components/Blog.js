@@ -22,7 +22,7 @@ export default function Blog({
 
   useEffect(() => {
     if (users.user) {
-      history.push("/blog");
+      history.push("/blogs");
     }
   }, [users.user, history]);
 

@@ -62,7 +62,7 @@ function NavBar() {
           Gallery
         </NavLink>
         <NavLink
-          to="/schedule"
+          to="/schedules"
           className="navBarLinks"
           activeStyle={{ color: "black" }}
         >
@@ -70,7 +70,7 @@ function NavBar() {
         </NavLink>
         {users.user && users.user.employee && (
           <NavLink
-            to="/create_trip"
+            to="/add_trips"
             className="navBarLinks"
             activeStyle={{ color: "black" }}
           >
@@ -94,7 +94,7 @@ function NavBar() {
           </NavLink>
         )}
         <NavLink
-          to="/blog"
+          to="/blogs"
           className="navBarLinks"
           activeStyle={{ color: "black" }}
         >

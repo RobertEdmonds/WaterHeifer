@@ -27,7 +27,7 @@ export default function ScheduleTrip({
 
   useEffect(() => {
     if (users.user) {
-      history.push("/schedule");
+      history.push("/schedules");
     }
   }, [users.user, history]);
 
