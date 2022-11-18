@@ -8,6 +8,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import "../styles/CreateTrip.css";
+import { useHistory } from "react-router-dom";
 
 export default function CreateTrip({
   handleAddTrip,
@@ -32,6 +33,7 @@ export default function CreateTrip({
   handleUpdateTrip,
 }) {
   const [error, setError] = useState([]);
+  const history = useHistory()
 
   const handleCreateTrip = (e) => {
     e.preventDefault();
@@ -105,6 +107,7 @@ export default function CreateTrip({
         );
         setTripEdit(false);
         setTripId(0);
+        history.push('/schedules')
       } else {
         resp.json().then((err) => setError(err.errors));
       }
