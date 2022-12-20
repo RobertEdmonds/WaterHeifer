@@ -17,8 +17,8 @@ Rails.application.routes.draw do
   patch "/user_update", to: 'users#update'
   patch "/user_employee_update/:id", to: 'users#update_employee'
   end
-  ...
-  # get "*path", to: "fallback#index" constraints: ->(req) { !req.xhr? && req.format.html? }
+
+get "*path", to: "fallback#index", constraints: ->(req) { !req.xhr? && req.format.html? }
   
   # Defines the root path route ("/")
   root "articles#index"
