@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   namespace :api do
     post 'uploads/prepare'
   end
+  ...
+  # get "*path", to: "fallback#index" constraints: ->(req) { !req.xhr? && req.format.html? }
   resources :pictures, only: [:index, :create]
   resources :response_blogs, only: [:index, :create, :update, :destroy]
   resources :blogs
