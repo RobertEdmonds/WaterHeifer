@@ -1,4 +1,4 @@
-class UserTripsController < ApplicationController
+class API::UserTripsController < ApplicationController
     before_action :set_user_trip, only: [:update, :destroy]
     before_action :set_trip, only: [:update, :destroy]
     before_action :authorize_user, only: [:update, :destroy]
