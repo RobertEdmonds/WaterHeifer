@@ -1,4 +1,4 @@
-class API::ResponseBlogsController < ApplicationController
+class ResponseBlogsController < ApplicationController
     before_action :set_response, only: [:update, :destroy]
     before_action :authorize_user, only: [ :update, :destroy ]
 

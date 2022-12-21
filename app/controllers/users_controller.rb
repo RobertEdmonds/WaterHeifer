@@ -1,4 +1,4 @@
-class API::UsersController < ApplicationController
+class UsersController < ApplicationController
     skip_before_action :authorize, only: [:create, :index]
     before_action :authorize_user, only: [:update_employee] 
     rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity 

@@ -1,4 +1,4 @@
-class API::BlogsController < ApplicationController
+class BlogsController < ApplicationController
     skip_before_action :authorize, only: [:index] 
     before_action :set_blog, only: [:show, :update, :destroy]
     before_action :user_permitted, only: [:update, :destroy]

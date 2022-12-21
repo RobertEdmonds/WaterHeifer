@@ -1,4 +1,4 @@
-class API::TripsController < ApplicationController
+class TripsController < ApplicationController
     skip_before_action :authorize, only: [:index]
     before_action :set_trip, only: [:show, :update, :destroy]
     before_action :authorize_user, only: [:create, :update, :destroy]
