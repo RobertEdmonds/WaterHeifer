@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 export const fetchUser = createAsyncThunk("users/fetchUsers", () => {
-  return fetch("/me")
+  return fetch("https://evening-coast-17369.herokuapp.com/me")
     .then((resp) => resp.json())
     .then((user) => user);
 });
