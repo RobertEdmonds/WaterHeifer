@@ -12,7 +12,7 @@ export default function RSVPForm({ spots, spaces, id, cost, showRSVPRemoval }) {
       spaces: parseInt(space),
       amount: parseInt(spaces) * 1 * cost,
     };
-    fetch(`/user_trips/${id}`, {
+    fetch(`/api/user_trips/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -29,7 +29,7 @@ export default function RSVPForm({ spots, spaces, id, cost, showRSVPRemoval }) {
   };
 
   const cancelTrip = () => {
-    fetch(`/user_trips/${id}`, {
+    fetch(`/api/user_trips/${id}`, {
       method: "Delete",
     }).then(() => showRSVPRemoval(id));
   };

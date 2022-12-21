@@ -21,7 +21,7 @@ export default function RespBlogForm({
       post: blogPost,
       blog_id: blogId,
     };
-    fetch("/response_blogs", {
+    fetch("/api/response_blogs", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -43,7 +43,7 @@ export default function RespBlogForm({
       post: blogPost,
       blog_id: blogId,
     };
-    fetch(`/response_blogs/${postId}`, {
+    fetch(`/api/response_blogs/${postId}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

@@ -26,7 +26,7 @@ export default function Donate({
   };
 
   const deleteCompany = (id) => {
-    fetch(`/companies/${id}`, {
+    fetch(`/api/companies/${id}`, {
       method: "DELETE",
     }).then(removeCompany(id));
   };

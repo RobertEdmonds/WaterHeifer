@@ -47,7 +47,7 @@ export default function CreateTrip({
       spots: parseInt(spots),
       cost_per_person: cost,
     };
-    fetch("/trips", {
+    fetch("/api/trips", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -85,7 +85,7 @@ export default function CreateTrip({
       spots: parseInt(spots),
       cost_per_person: cost,
     };
-    fetch(`/trips/${tripId}`, {
+    fetch(`/api/trips/${tripId}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

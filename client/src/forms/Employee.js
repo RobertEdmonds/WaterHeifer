@@ -9,7 +9,7 @@ export default function Employee({ id, status }) {
     const form = {
       employee: employee,
     };
-    fetch(`/user_employee_update/${id}`, {
+    fetch(`/api/user_employee_update/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

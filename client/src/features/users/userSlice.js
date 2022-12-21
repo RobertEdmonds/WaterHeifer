@@ -1,13 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 export const fetchUser = createAsyncThunk("users/fetchUsers", () => {
-  return fetch("https://evening-coast-17369.herokuapp.com/me")
+  return fetch("/api/me")
     .then((resp) => resp.json())
     .then((user) => user);
 });
 
 export const addUser = createAsyncThunk("users/addUsers", async (action) => {
-  const signUp = await fetch("/signup", {
+  const signUp = await fetch("/api/signup", {
     method: "POST",
     headers: {
       "Content-type": "application/json",
@@ -19,7 +19,7 @@ export const addUser = createAsyncThunk("users/addUsers", async (action) => {
   return signUp;
 });
 export const logInUser = createAsyncThunk("users/logInUser", async (action) => {
-  const loginFetch = await fetch("/login", {
+  const loginFetch = await fetch("/api/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -32,7 +32,7 @@ export const logInUser = createAsyncThunk("users/logInUser", async (action) => {
 });
 
 export const deleteUser = createAsyncThunk("users/deleteUser", () => {
-  fetch("/logout", { method: "DELETE" });
+  fetch("/api/logout", { method: "DELETE" });
 });
 
 const initialState = {

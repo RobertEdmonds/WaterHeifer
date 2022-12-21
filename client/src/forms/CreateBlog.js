@@ -22,7 +22,7 @@ export default function CreateBlog({
       title,
       post,
     };
-    fetch("/blogs", {
+    fetch("/api/blogs", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -46,7 +46,7 @@ export default function CreateBlog({
       title,
       post,
     };
-    fetch(`/blogs/${blogId}`, {
+    fetch(`/api/blogs/${blogId}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

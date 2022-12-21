@@ -12,7 +12,7 @@ export default function Gallery({ pictures, handleAddImage }) {
     const form = {
       picture_url: result.info.secure_url,
     };
-    fetch("/pictures", {
+    fetch("/api/pictures", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

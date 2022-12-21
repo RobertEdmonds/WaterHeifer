@@ -1,10 +1,7 @@
 Rails.application.routes.draw do
   namespace :api do
     post 'uploads/prepare'
-  end
-
-get "*path", to: "fallback#index", constraints: ->(req) { !req.xhr? && req.format.html? }
-resources :pictures, only: [:index, :create]
+    resources :pictures, only: [:index, :create]
     resources :response_blogs, only: [:index, :create, :update, :destroy]
     resources :blogs
     resources :donations, only: [:create, :update, :destroy]
@@ -19,6 +16,10 @@ resources :pictures, only: [:index, :create]
     delete '/logout', to: "sessions#destroy"
     patch "/user_update", to: 'users#update'
     patch "/user_employee_update/:id", to: 'users#update_employee'
+  end
+
+get "*path", to: "fallback#index", constraints: ->(req) { !req.xhr? && req.format.html? }
+
   
   # Defines the root path route ("/")
   root "articles#index"

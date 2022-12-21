@@ -26,7 +26,7 @@ export default function AddCompany({
       tax_number: tax,
       description: companyDescript,
     };
-    fetch("/companies", {
+    fetch("/api/companies", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -51,7 +51,7 @@ export default function AddCompany({
       tax_number: tax,
       description: companyDescript,
     };
-    fetch(`/companies/${companyId}`, {
+    fetch(`/api/companies/${companyId}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

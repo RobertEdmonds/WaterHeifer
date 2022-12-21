@@ -5,7 +5,7 @@ export default function CustomerList() {
   const [customers, setCustomers] = useState([]);
 
   useEffect(() => {
-    fetch("/users")
+    fetch("/api/users")
       .then((resp) => resp.json())
       .then((cust) => setCustomers(cust));
   }, []);

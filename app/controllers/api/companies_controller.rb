@@ -1,4 +1,4 @@
-class CompaniesController < ApplicationController
+class Api::CompaniesController < ApplicationController
     skip_before_action :authorize, only: [:index]
     before_action :set_company, only: [:show, :update, :destroy]
     before_action :authorize_user, only: [:create, :update, :destroy]

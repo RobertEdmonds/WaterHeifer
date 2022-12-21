@@ -59,7 +59,7 @@ function App() {
 
   // This is Show, Add, Edit and Delete for Schedule Trips
   useEffect(() => {
-    fetch("/trips")
+    fetch("/api/trips")
       .then((r) => r.json())
       .then((trip) => setTrips(trip));
   }, []);
@@ -91,7 +91,7 @@ function App() {
   });
   // This is Show, Add, Edit and Delete for Companies and donation
   useEffect(() => {
-    fetch("/companies")
+    fetch("/api/companies")
       .then((resp) => resp.json())
       .then((comp) => setCompany(comp));
   }, []);
@@ -127,7 +127,7 @@ function App() {
   };
 
   useEffect(() => {
-    fetch("/blogs")
+    fetch("/api/blogs")
       .then((resp) => resp.json())
       .then((blogs) => setBlogs(blogs));
   }, []);
@@ -153,7 +153,7 @@ function App() {
   };
   // This is show and add for Gallery
   useEffect(() => {
-    fetch("/pictures")
+    fetch("/api/pictures")
       .then((resp) => resp.json())
       .then((images) => setPictures(images));
   }, []);

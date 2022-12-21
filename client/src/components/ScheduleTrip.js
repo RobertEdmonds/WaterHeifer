@@ -49,7 +49,7 @@ export default function ScheduleTrip({
   };
 
   const deleteTrip = (id) => {
-    fetch(`/trips/${id}`, {
+    fetch(`/api/trips/${id}`, {
       method: "DELETE",
     }).then(removeTrip(id));
   };

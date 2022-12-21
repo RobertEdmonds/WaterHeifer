@@ -36,7 +36,7 @@ export default function Blog({
 
   const handleBlogDelete = (e, id) => {
     e.stopPropagation();
-    fetch(`/blogs/${id}`, {
+    fetch(`/api/blogs/${id}`, {
       method: "DELETE",
     }).then(() => showBlogDelete(id));
   };

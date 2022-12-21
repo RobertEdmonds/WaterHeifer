@@ -21,7 +21,7 @@ export default function ScheduleForm({ oneTrip }) {
         amount: parseInt(spaces) * 1 * oneTrip.cost_per_person,
         spaces: parseInt(spaces),
       };
-      fetch("/user_trips", {
+      fetch("/api/user_trips", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

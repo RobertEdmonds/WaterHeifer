@@ -39,7 +39,7 @@ export default function ResponseBlog({ respPost, responder, blogId }) {
   };
 
   const handlePostDelete = (id) => {
-    fetch(`/response_blogs/${id}`, {
+    fetch(`/api/response_blogs/${id}`, {
       method: "DELETE",
     }).then(() => showPostDelete(id));
   };

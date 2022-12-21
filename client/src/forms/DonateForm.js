@@ -21,7 +21,7 @@ export default function DonateForm({ compId, totalD }) {
     if (users.user.id === undefined) {
       history.push("/login");
     } else {
-      fetch("/donations", {
+      fetch("/api/donations", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

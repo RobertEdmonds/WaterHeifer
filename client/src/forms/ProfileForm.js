@@ -27,7 +27,7 @@ export default function ProfileForm() {
       email: email.toUpperCase(),
       phone_number: phone,
     };
-    fetch(`/user_update`, {
+    fetch(`/api/user_update`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
