@@ -23,5 +23,6 @@ test:
 
 production:
   <<: *default
+  database: waterheifer_production
   # database: db/production.sqlite3
   # url: <%= ENV['DATABASE_URL'] %>
