@@ -45,7 +45,7 @@ export default function ScheduleTrip({
     setEnd(trip.end_time);
     setTripId(trip.id);
     setTripEdit(true);
-    history.push("/add_trip");
+    history.push("/add_trips");
   };
 
   const deleteTrip = (id) => {
