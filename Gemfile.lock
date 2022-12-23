@@ -197,7 +197,7 @@ DEPENDENCIES
   cloudinary (~> 1.23)
   dotenv-rails (~> 2.8)
   foreman (~> 0.87)
-  pg (~> 1.1)
+  pg (~> 1.4)
   puma (~> 5.0)
   rails (~> 7.0.4)
   tzinfo-data

@@ -8,7 +8,7 @@ gem "rails", "~> 7.0.4"
 
 # Use sqlite3 as the database for Active Record
 # gem "sqlite3", "~> 1.4"
-gem 'pg', '~> 1.1'
+# gem 'pg', '~> 1.1'
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 5.0"
 
@@ -32,6 +32,7 @@ group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
   gem 'foreman', '~> 0.87'
+  # gem "sqlite3", "~> 1.4"
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
 
@@ -41,6 +42,7 @@ end
 
 
 
-
 gem "cloudinary", "~> 1.23"
 
+
+gem "pg", "~> 1.4"

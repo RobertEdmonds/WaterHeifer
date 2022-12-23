@@ -1,6 +1,7 @@
 {
-    "name": "heroku-deploy",
-    "description": "Build scripts for Heroku",
+    "name": "waterheifer_client",
+    "version": "1.0.0",
+    "description": "Book your fishing trip to Alaska",
     "engines": {
       "node": "15.6.0"
     },
@@ -9,5 +10,6 @@
       "build": "npm install --prefix client && npm run build --prefix client",
       "deploy": "cp -a client/build/. public/",
       "heroku-postbuild": "npm run clean && npm run build && npm run deploy"
-    }
+    },
+    "author": "RobertEdmonds"
   }
